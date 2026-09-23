@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Northstar Motors | Premium Independent Car Dealership in Pennsauken, NJ</title>
+  <meta name="description" content="Northstar Motors - Find the Car. Feel the Difference. Carefully selected luxury and performance vehicles, straightforward pricing, and a dealership experience built around you in Pennsauken, NJ.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body class="studio-bright-theme">
+
+  <!-- Sticky Top Navigation Header -->
+  <header class="navbar" id="site-navbar">
+    <div class="logo" id="logo-home-btn" role="button" tabindex="0">
+      <div class="logo-compass-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 19 21 12 17 5 21 12 2"></polygon></svg>
+      </div>
+      <div class="logo-stack">
+        <span class="logo-text">NORTHSTAR MOTORS</span>
+        <span class="logo-subtext">FIND THE CAR. FEEL THE DIFFERENCE.</span>
+      </div>
+    </div>
+
+    <nav class="nav-links">
+      <button class="nav-link active" data-page="home">Home</button>
+      <button class="nav-link" data-page="inventory">Inventory</button>
+      <button class="nav-link" data-page="why-northstar">Why Northstar</button>
+      <button class="nav-link" data-page="financing">Financing</button>
+      <button class="nav-link" data-page="trade-in">Trade-In</button>
+      <button class="nav-link" data-page="about">About</button>
+      <button class="nav-link" data-page="contact">Contact</button>
+    </nav>
+
+    <div class="header-actions">
+      <a href="tel:8563037680" class="btn btn-icon btn-phone" title="Call Northstar Motors">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        <span>(856) 303-7680</span>
+      </a>
+
+      <button class="btn btn-icon" id="audio-rev-btn" title="Rev Engine Audio">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+        <span>Rev Engine</span>
+      </button>
+
+      <button class="btn btn-outline nav-cta-secondary" data-page="trade-in">Value My Trade</button>
+      <button class="btn btn-primary nav-cta-primary" data-page="inventory">Browse Inventory</button>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-toggle-btn" id="mobile-menu-toggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Navigation -->
+  <div class="mobile-menu-overlay" id="mobile-menu">
+    <div class="mobile-menu-header">
+      <span class="logo-text">NORTHSTAR MOTORS</span>
+      <button class="mobile-close-btn" id="close-mobile-menu">&times;</button>
+    </div>
+    <nav class="mobile-nav-links">
+      <button class="mobile-nav-link active" data-page="home">Home</button>
+      <button class="mobile-nav-link" data-page="inventory">Inventory</button>
+      <button class="mobile-nav-link" data-page="why-northstar">Why Northstar</button>
+      <button class="mobile-nav-link" data-page="financing">Financing</button>
+      <button class="mobile-nav-link" data-page="trade-in">Trade-In</button>
+      <button class="mobile-nav-link" data-page="about">About</button>
+      <button class="mobile-nav-link" data-page="contact">Contact</button>
+    </nav>
+    <div class="mobile-menu-actions">
+      <button class="btn btn-primary btn-large w-100" data-page="inventory">Browse Inventory</button>
+      <button class="btn btn-outline btn-large w-100" data-page="trade-in">Value My Trade</button>
+      <a href="tel:8563037680" class="mobile-phone-link">📞 (856) 303-7680</a>
+    </div>
+  </div>
+
+  <!-- MAIN MULTI-PAGE VIEW CONTAINER -->
+  <main id="app-viewport">
+
+    <!-- PAGE VIEW: HOME -->
+    <div class="page-view active" id="view-home">
+
+      <!-- 3D HERO LANDING SECTION (VISUAL CENTERPIECE) -->
+      <section class="hero-3d-section" id="hero-section">
+        <!-- 3D Canvas Background -->
+        <div id="canvas-container">
+          <canvas id="webgl-canvas"></canvas>
+        </div>
+
+        <!-- Interactive Hint Banner -->
+        <div class="cube-hint-banner" id="cube-hint">
+          <div class="hint-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="12 8 8 12 12 16 16 12 12 8"></polygon></svg>
+          </div>
+          <span><strong>Northstar 3D Studio:</strong> Move cursor to explore cinematic angles. Hover over vehicle for intelligent LED headlights.</span>
+          <button class="hint-close" id="close-hint-btn">&times;</button>
+        </div>
+
+        <!-- HUD Overlay Elements -->
+        <div class="hud-container">
+          <!-- Hero Titles & Specs HUD -->
+          <div class="hero-hud">
+            <div class="badge">CAREFULLY SELECTED • TRANSPARENT BUYING • BUILT AROUND YOU</div>
+            <h1 class="car-title">NORTHSTAR <span class="edition">2024 PERFORMANCE SERIES</span></h1>
+            <p class="car-tagline">3429 Haddonfield Rd, Pennsauken NJ • Serving Cherry Hill, Philadelphia &amp; Beyond</p>
+
+            <div class="hud-specs">
+              <div class="spec-card">
+                <span class="spec-val" id="spec-accel">2.5s</span>
+                <span class="spec-lbl">0-60 MPH</span>
+              </div>
+              <div class="spec-card">
+                <span class="spec-val" id="spec-speed">1,001 <small>HP</small></span>
+                <span class="spec-lbl">Max Power</span>
+              </div>
+              <div class="spec-card">
+                <span class="spec-val" id="spec-hp">100%</span>
+                <span class="spec-lbl">Pre-Approved</span>
+              </div>
+              <div class="spec-card">
+                <span class="spec-val" id="spec-range">$0</span>
+                <span class="spec-lbl">Hidden Fees</span>
+              </div>
+            </div>
+
+            <!-- Minimal Vehicle Information Card -->
+            <div class="hero-vehicle-info-card">
+              <div class="info-tag-row">
+                <span class="info-tag">2024 PERFORMANCE SERIES</span>
+                <span class="info-status">Ready for Delivery</span>
+              </div>
+              <h4>Built for the road ahead.</h4>
+              <p>Handcrafted twin-turbo V8 powertrain, carbon monocoque chassis, and active aerodynamics.</p>
+              <button class="btn btn-outline view-details-link" data-page="inventory">View Details &rarr;</button>
+            </div>
+          </div>
+
+          <!-- Camera Orbit Quick Controls -->
+          <div class="camera-presets">
+            <span class="preset-label">Angles</span>
+            <button class="preset-btn active" data-preset="hero">Hero 3/4</button>
+            <button class="preset-btn" data-preset="front">Front Grille</button>
+            <button class="preset-btn" data-preset="side">Side Profile</button>
+            <button class="preset-btn" data-preset="rear">Quad Exhaust</button>
+            <button class="preset-btn" data-preset="wheels">Forged Rims</button>
+            <button class="preset-btn" data-preset="top">Top Down</button>
+          </div>
+
+          <!-- 3D Hotspot Tooltips on Car -->
+          <div class="hotspot-pin" id="hotspot-engine" style="top: 45%; left: 62%;">
+            <div class="pin-pulse"></div>
+            <div class="pin-card">
+              <h4>Northstar 150-Point Inspection</h4>
+              <p>Every vehicle evaluated for mechanical excellence, history, and long-term reliability.</p>
+            </div>
+          </div>
+
+          <div class="hotspot-pin" id="hotspot-brakes" style="top: 58%; left: 52%;">
+            <div class="pin-pulse"></div>
+            <div class="pin-card">
+              <h4>Performance Carbon Brakes</h4>
+              <p>Brembo-style drilled carbon-ceramic rotors with multi-piston sport calipers.</p>
+            </div>
+          </div>
+
+          <div class="hotspot-pin" id="hotspot-spoiler" style="top: 42%; left: 78%;">
+            <div class="pin-pulse"></div>
+            <div class="pin-card">
+              <h4>Active Aerodynamic Wing</h4>
+              <p>Precision dynamic bodywork engineered for high-speed downforce and stability.</p>
+            </div>
+          </div>
+
+          <!-- Customization Studio Drawer -->
+          <aside class="customizer-panel" id="customizer-drawer">
+            <div class="drawer-header">
+              <h2>Northstar 3D Studio</h2>
+              <span class="drawer-subtitle">Personalize finish, rims &amp; studio lighting</span>
+            </div>
+
+            <!-- Environment Theme Toggle -->
+            <div class="control-group">
+              <label>Showroom Lighting</label>
+              <div class="toggle-switch-grid">
+                <button class="env-btn active" data-env="dark">Night Studio</button>
+                <button class="env-btn" data-env="bright">Bright Studio</button>
+                <button class="env-btn" data-env="sunset">Golden Sunset</button>
+              </div>
+            </div>
+
+            <!-- Paint Color Swatches -->
+            <div class="control-group">
+              <label>Exterior Paint: <span id="color-name-display">Phantom Jet Black</span></label>
+              <div class="color-swatch-grid">
+                <button class="swatch active" data-color="#0a0b0e" data-name="Phantom Jet Black" style="background: #0a0b0e;"></button>
+                <button class="swatch" data-color="#ff5500" data-name="Apex Orange" style="background: #ff5500;"></button>
+                <button class="swatch" data-color="#c8102e" data-name="Crimson Red" style="background: #c8102e;"></button>
+                <button class="swatch" data-color="#0f52ba" data-name="Sapphire Blue" style="background: #0f52ba;"></button>
+                <button class="swatch" data-color="#d4af37" data-name="Metallic Gold" style="background: #d4af37;"></button>
+                <button class="swatch" data-color="#33cc33" data-name="Verde Acid Green" style="background: #33cc33;"></button>
+                <button class="swatch" data-color="#f4f5f7" data-name="Glacier White" style="background: #f4f5f7;"></button>
+              </div>
+            </div>
+
+            <!-- Material Finish -->
+            <div class="control-group">
+              <label>Finish Style</label>
+              <div class="segmented-control">
+                <button class="segment active" data-finish="metallic">Gloss Metallic</button>
+                <button class="segment" data-finish="matte">Stealth Matte</button>
+                <button class="segment" data-finish="carbon">Full Carbon</button>
+              </div>
+            </div>
+
+            <!-- Rim Design -->
+            <div class="control-group">
+              <label>Wheel Rims</label>
+              <div class="segmented-control">
+                <button class="segment active" data-rim="black">Forged Jet Black</button>
+                <button class="segment" data-rim="chrome">Titanium Silver</button>
+                <button class="segment" data-rim="gold">Bronze Diamond Cut</button>
+              </div>
+            </div>
+
+            <!-- Interactive Car Controls -->
+            <div class="control-group">
+              <label>Interactive Parts</label>
+              <div class="btn-grid">
+                <button class="btn btn-outline" id="toggle-doors-btn">Scissor Doors</button>
+                <button class="btn btn-outline" id="toggle-spoiler-btn">Active Wing</button>
+                <button class="btn btn-outline" id="toggle-lights-btn">Matrix LEDs</button>
+                <button class="btn btn-outline" id="toggle-xray-btn">X-Ray Specs</button>
+              </div>
+            </div>
+
+            <!-- Price summary & Pre-order CTA -->
+            <div class="price-footer">
+              <div class="price-info">
+                <span class="price-label">Transparent Price</span>
+                <span class="price-amount" id="total-price-display">$78,900</span>
+                <span class="finance-est">Est. $980 / mo with Northstar Financing</span>
+              </div>
+              <button class="btn btn-primary btn-large btn-glow" id="open-preorder-modal">Get Pre-Approved Instantly</button>
+            </div>
+          </aside>
+        </div>
+
+        <!-- Scroll Indicator Arrow -->
+        <div class="hero-scroll-down" id="scroll-down-btn">
+          <span>EXPLORE DEALERSHIP</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M12 6v12"></path></svg>
+        </div>
+      </section>
+
+      <!-- 01 — FEATURED INVENTORY -->
+      <section class="section section-dark-accent" id="featured-inventory-section">
+        <div class="container">
+          <div class="section-header center-align">
+            <span class="section-tag">CURATED SELECTION</span>
+            <h2 class="section-title">Cars Worth Taking a Second Look At.</h2>
+            <p class="section-subtitle">Every vehicle in our showroom is hand-selected, rigorously inspected, and ready for its next chapter.</p>
+          </div>
+
+          <div class="inventory-grid" id="featured-inventory-grid">
+            <!-- Dynamically injected featured cars -->
+          </div>
+
+          <div class="section-actions center-align">
+            <button class="btn btn-primary btn-large" data-page="inventory">View All Inventory &rarr;</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 — BRAND STATEMENT -->
+      <section class="section section-statement">
+        <div class="container">
+          <div class="statement-box">
+            <span class="statement-badge">THE NORTHSTAR DIFFERENCE</span>
+            <h2 class="statement-headline">"Not Just Another Car Lot."</h2>
+            <p class="statement-body">
+              "We're building a better way to buy your next vehicle—one built on selection, transparency and trust.
+              The right car isn't just transportation. It's the beginning of what's next."
+            </p>
+            <div class="statement-author">
+              <div class="author-avatar">NS</div>
+              <div>
+                <strong>The Northstar Team</strong>
+                <span>Pennsauken, New Jersey</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 — BROWSE BY TYPE -->
+      <section class="section section-light">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">FIND YOUR CATEGORY</span>
+            <h2 class="section-title">Browse By Type</h2>
+            <p class="section-subtitle">Discover the format that aligns with your lifestyle.</p>
+          </div>
+
+          <div class="categories-grid">
+            <div class="category-card" data-category="SUV">
+              <div class="category-icon">🚙</div>
+              <h3>SUVs</h3>
+              <p>Versatile luxury, command position &amp; capability.</p>
+              <span class="category-link">Explore SUVs &rarr;</span>
+            </div>
+            <div class="category-card" data-category="Truck">
+              <div class="category-icon">🛻</div>
+              <h3>TRUCKS</h3>
+              <p>Unmatched towing, utility &amp; premium comfort.</p>
+              <span class="category-link">Explore Trucks &rarr;</span>
+            </div>
+            <div class="category-card" data-category="Sedan">
+              <div class="category-icon">🚘</div>
+              <h3>SEDANS</h3>
+              <p>Sleek design, executive ride &amp; efficiency.</p>
+              <span class="category-link">Explore Sedans &rarr;</span>
+            </div>
+            <div class="category-card" data-category="Coupe">
+              <div class="category-icon">🏎️</div>
+              <h3>COUPES</h3>
+              <p>Aggressive styling, twin-turbo power &amp; agility.</p>
+              <span class="category-link">Explore Coupes &rarr;</span>
+            </div>
+            <div class="category-card" data-category="Luxury">
+              <div class="category-icon">✨</div>
+              <h3>LUXURY</h3>
+              <p>High-line craftsmanship &amp; cutting-edge tech.</p>
+              <span class="category-link">Explore Luxury &rarr;</span>
+            </div>
+            <div class="category-card" data-category="Sport">
+              <div class="category-icon">🏁</div>
+              <h3>SPORT</h3>
+              <p>Track-tested performance &amp; raw acceleration.</p>
+              <span class="category-link">Explore Sports &rarr;</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 — THE NORTHSTAR EXPERIENCE -->
+      <section class="section section-dark">
+        <div class="container">
+          <div class="section-header center-align">
+            <span class="section-tag">STREAMLINED PROCESS</span>
+            <h2 class="section-title">From Search to Driveway.</h2>
+            <p class="section-subtitle">Four straightforward steps to putting your next vehicle in your driveway.</p>
+          </div>
+
+          <div class="process-steps-grid">
+            <div class="process-step-card">
+              <div class="step-num">01</div>
+              <h3>Find Your Vehicle</h3>
+              <p>Browse our curated online collection with transparent photos, full specs, and clear upfront pricing.</p>
+            </div>
+            <div class="process-step-card">
+              <div class="step-num">02</div>
+              <h3>Explore the Details</h3>
+              <p>Review 150-point inspection records, history reports, and schedule a personalized test drive.</p>
+            </div>
+            <div class="process-step-card">
+              <div class="step-num">03</div>
+              <h3>Get Your Numbers</h3>
+              <p>Custom tailored financing estimates or instant trade-in appraisal with zero high-pressure tactics.</p>
+            </div>
+            <div class="process-step-card">
+              <div class="step-num">04</div>
+              <h3>Drive Away</h3>
+              <p>Sign straightforward paperwork, collect your keys, and hit the road with complete confidence.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 — TRADE-IN CTA -->
+      <section class="section section-trade-cta">
+        <div class="container">
+          <div class="trade-cta-box">
+            <div class="trade-cta-content">
+              <span class="section-tag">INSTANT APPRAISAL</span>
+              <h2>Thinking About Selling or Trading?</h2>
+              <p>Your current vehicle may be worth more toward your next one than you think. Get a clear, market-backed appraisal in under 2 minutes.</p>
+              <button class="btn btn-primary btn-large" data-page="trade-in">Value My Trade</button>
+            </div>
+            <div class="trade-cta-badge">
+              <div class="badge-value">Up to 110%</div>
+              <div class="badge-label">Market Value Offer</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 — CUSTOMER TRUST -->
+      <section class="section section-light">
+        <div class="container">
+          <div class="section-header center-align">
+            <span class="section-tag">REAL DRIVER FEEDBACK</span>
+            <h2 class="section-title">The Experience Matters.</h2>
+            <p class="section-subtitle">See why drivers across New Jersey and Pennsylvania trust Northstar Motors.</p>
+          </div>
+
+          <div class="testimonials-grid">
+            <div class="testimonial-card">
+              <div class="stars">★★★★★</div>
+              <p>"Buying my BMW M4 here was the smoothest dealership experience I've had in 15 years. No pushy add-ons, transparent numbers, and total respect for my time."</p>
+              <div class="reviewer">
+                <strong>Marcus Vance</strong>
+                <span>Purchased 2024 BMW M4</span>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="stars">★★★★★</div>
+              <p>"They gave me $2,400 more for my trade-in than the big corporate lot down the road. Honest people who actually know cars."</p>
+              <div class="reviewer">
+                <strong>Elena Rostova</strong>
+                <span>Purchased Porsche Macan GTS</span>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="stars">★★★★★</div>
+              <p>"Northstar made the financing process seamless. I got pre-approved online, test drove the F-150, and drove home in less than an hour."</p>
+              <div class="reviewer">
+                <strong>David K.</strong>
+                <span>Purchased Ford F-150 Lariat</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 — FINAL CTA -->
+      <section class="section section-dark section-final-cta">
+        <div class="container center-align">
+          <span class="section-tag">YOUR NEXT CHAPTER</span>
+          <h2 class="section-title">Ready for What's Next?</h2>
+          <p class="section-subtitle">Your next vehicle is closer than you think. Explore our inventory or talk to a Northstar specialist today.</p>
+
+          <div class="cta-btn-row">
+            <button class="btn btn-primary btn-large btn-glow" data-page="inventory">Browse Inventory</button>
+            <button class="btn btn-outline btn-large" data-page="contact">Contact Northstar</button>
+          </div>
+        </div>
+      </section>
+
+    </div> <!-- END VIEW HOME -->
+
+    <!-- PAGE VIEW: INVENTORY MARKETPLACE -->
+    <div class="page-view" id="view-inventory">
+      <section class="page-hero">
+        <div class="container">
+          <span class="section-tag">VEHICLE MARKETPLACE</span>
+          <h1>Your Next Car Is Waiting.</h1>
+          <p>Explore a collection of carefully selected vehicles, ready for their next chapter.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <!-- Inventory Filter Bar -->
+          <div class="filter-card">
+            <div class="filter-search-row">
+              <div class="search-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="inventory-search-input" placeholder="Search by make, model, or keywords (e.g. BMW, Twin-Turbo, 4x4)...">
+              </div>
+              <div class="inventory-count-badge" id="inventory-count-badge">8 Vehicles Available</div>
+            </div>
+
+            <div class="filter-grid">
+              <div class="filter-group">
+                <label>Make</label>
+                <select id="filter-make">
+                  <option value="All">All Makes</option>
+                  <option value="BMW">BMW</option>
+                  <option value="Ford">Ford</option>
+                  <option value="Mercedes-Benz">Mercedes-Benz</option>
+                  <option value="Porsche">Porsche</option>
+                  <option value="Audi">Audi</option>
+                  <option value="Chevrolet">Chevrolet</option>
+                  <option value="Land Rover">Land Rover</option>
+                  <option value="Tesla">Tesla</option>
+                </select>
+              </div>
+
+              <div class="filter-group">
+                <label>Body Style</label>
+                <select id="filter-body">
+                  <option value="All">All Styles</option>
+                  <option value="SUV">SUV</option>
+                  <option value="Truck">Truck</option>
+                  <option value="Sedan">Sedan</option>
+                  <option value="Coupe">Coupe</option>
+                  <option value="Luxury">Luxury</option>
+                  <option value="Sport">Sport</option>
+                </select>
+              </div>
+
+              <div class="filter-group">
+                <label>Max Price</label>
+                <select id="filter-price">
+                  <option value="All">Any Price</option>
+                  <option value="50000">Under $50,000</option>
+                  <option value="70000">Under $70,000</option>
+                  <option value="90000">Under $90,000</option>
+                </select>
+              </div>
+
+              <div class="filter-group">
+                <label>Transmission</label>
+                <select id="filter-transmission">
+                  <option value="All">All Transmissions</option>
+                  <option value="Automatic">Automatic</option>
+                  <option value="Dual-Clutch">Dual-Clutch / PDK</option>
+                  <option value="Electric">Electric Drive</option>
+                </select>
+              </div>
+
+              <div class="filter-group">
+                <label>Sort By</label>
+                <select id="filter-sort">
+                  <option value="featured">Featured First</option>
+                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-high">Price: High to Low</option>
+                  <option value="year-new">Year: Newest</option>
+                  <option value="mileage-low">Mileage: Lowest</option>
+                </select>
+              </div>
+
+              <div class="filter-group">
+                <label>Fuel Type</label>
+                <select id="filter-fuel">
+                  <option value="All">All Fuel Types</option>
+                  <option value="Gasoline">Gasoline</option>
+                  <option value="Mild Hybrid">Mild Hybrid</option>
+                  <option value="Hybrid">Hybrid</option>
+                  <option value="Electric">Electric</option>
+                </select>
+              </div>
+
+              <div class="filter-group filter-reset-group">
+                <button class="btn btn-outline w-100" id="filter-reset-btn">Reset Filters</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Inventory Grid -->
+          <div class="inventory-grid" id="full-inventory-grid">
+            <!-- Injected via JavaScript -->
+          </div>
+        </div>
+      </section>
+    </div> <!-- END VIEW INVENTORY -->
+
+    <!-- PAGE VIEW: WHY NORTHSTAR -->
+    <div class="page-view" id="view-why-northstar">
+      <section class="page-hero">
+        <div class="container">
+          <span class="section-tag">OUR PHILOSOPHY</span>
+          <h1>Buying a Car Shouldn't Feel Like a Negotiation.</h1>
+          <p>We believe buying your next vehicle should be straightforward. No unnecessary pressure. No confusing process. Just quality vehicles, transparent information, and people who are here to help.</p>
+        </div>
+      </section>
+
+      <section class="section section-light">
+        <div class="container">
+          <div class="features-4grid">
+            <div class="why-card">
+              <div class="why-num">01</div>
+              <h3>Carefully Selected</h3>
+              <p>We look beyond the badge. Every vehicle is evaluated for condition, history and value before ever reaching our inventory.</p>
+            </div>
+            <div class="why-card">
+              <div class="why-num">02</div>
+              <h3>Straightforward Pricing</h3>
+              <p>Know what you're looking at before you ever step onto the lot. Zero hidden documentation fees or forced add-on packages.</p>
+            </div>
+            <div class="why-card">
+              <div class="why-num">03</div>
+              <h3>Real People</h3>
+              <p>Talk to someone who can answer your questions—not someone reading from a script or pushing a monthly quota.</p>
+            </div>
+            <div class="why-card">
+              <div class="why-num">04</div>
+              <h3>Confidence After Purchase</h3>
+              <p>We want you to leave knowing you made a decision you can feel good about today, tomorrow, and years down the road.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Transparency Comparison Table -->
+      <section class="section section-dark">
+        <div class="container">
+          <div class="section-header center-align">
+            <span class="section-tag">TRANSPARENCY COMPARISON</span>
+            <h2 class="section-title">The Northstar Standard</h2>
+          </div>
+
+          <div class="comparison-table">
+            <div class="table-row table-header">
+              <div>Feature</div>
+              <div>Typical Dealership</div>
+              <div class="highlight-col">Northstar Motors</div>
+            </div>
+            <div class="table-row">
+              <div>Pricing Model</div>
+              <div>Hidden fees added in finance office</div>
+              <div class="highlight-col">100% Upfront Transparent Price</div>
+            </div>
+            <div class="table-row">
+              <div>Vehicle Inspection</div>
+              <div>Basic state inspection only</div>
+              <div class="highlight-col">150-Point Mechanical &amp; History Audit</div>
+            </div>
+            <div class="table-row">
+              <div>Trade-In Appraisal</div>
+              <div>Lowball initial offer, requires haggling</div>
+              <div class="highlight-col">Market-Backed Instant Valuation</div>
+            </div>
+            <div class="table-row">
+              <div>Sales Team</div>
+              <div>Commission-driven high pressure</div>
+              <div class="highlight-col">Customer Experience Specialists</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div> <!-- END VIEW WHY NORTHSTAR -->
+
+    <!-- PAGE VIEW: FINANCING -->
+    <div class="page-view" id="view-financing">
+      <section class="page-hero">
+        <div class="container">
+          <span class="section-tag">TAILORED SOLUTIONS</span>
+          <h1>Put the Right Car Within Reach.</h1>
+          <p>Explore financing options designed around your situation—not a one-size-fits-all formula.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="calculator-layout">
+            <!-- Payment Calculator Widget -->
+            <div class="calc-card">
+              <h3>Monthly Payment Estimator</h3>
+              <p>Adjust variables to calculate your estimated payment.</p>
+
+              <div class="calc-form">
+                <div class="calc-field">
+                  <label>Vehicle Price: <strong id="calc-price-display">$60,000</strong></label>
+                  <input type="range" id="calc-price-slider" min="15000" max="120000" step="1000" value="60000">
+                </div>
+
+                <div class="calc-field">
+                  <label>Down Payment: <strong id="calc-down-display">$10,000</strong></label>
+                  <input type="range" id="calc-down-slider" min="0" max="40000" step="500" value="10000">
+                </div>
+
+                <div class="calc-field">
+                  <label>Loan Term: <strong id="calc-term-display">60 Months</strong></label>
+                  <select id="calc-term-select">
+                    <option value="36">36 Months (3 Years)</option>
+                    <option value="48">48 Months (4 Years)</option>
+                    <option value="60" selected>60 Months (5 Years)</option>
+                    <option value="72">72 Months (6 Years)</option>
+                  </select>
+                </div>
+
+                <div class="calc-field">
+                  <label>Estimated APR: <strong id="calc-apr-display">5.9%</strong></label>
+                  <input type="range" id="calc-apr-slider" min="2.9" max="14.9" step="0.1" value="5.9">
+                </div>
+
+                <div class="calc-result-box">
+                  <span class="result-label">Estimated Monthly Payment</span>
+                  <span class="result-amount" id="calc-monthly-result">$964 / mo</span>
+                  <small>*Estimate only. Subject to credit qualification.</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pre-Qualification Callout -->
+            <div class="prequal-card">
+              <span class="section-tag">NO IMPACT ON CREDIT SCORE</span>
+              <h2>Get Pre-Qualified Online in 2 Minutes</h2>
+              <p>Know your buying power before visiting the lot. Our soft-pull pre-qualification provides exact rates without affecting your credit score.</p>
+              
+              <ul class="check-list">
+                <li>✓ Soft credit check — zero impact on your credit score</li>
+                <li>✓ Rates starting as low as 4.99% APR</li>
+                <li>✓ Terms up to 72 months available</li>
+                <li>✓ Competitive financing for prime &amp; subprime buyers</li>
+              </ul>
+
+              <button class="btn btn-primary btn-large w-100" id="open-financing-prequal-btn">Explore Your Options</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="section section-light">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-tag">FREQUENTLY ASKED QUESTIONS</span>
+            <h2 class="section-title">Financing FAQs</h2>
+          </div>
+
+          <div class="faq-accordion">
+            <details class="faq-item" open>
+              <summary>Will pre-qualifying affect my credit score?</summary>
+              <p>No. Our pre-qualification process utilizes a soft credit inquiry that does not impact your credit score or appear on your hard credit report.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Can I apply my trade-in toward the down payment?</summary>
+              <p>Absolutely. Your trade-in equity can be directly applied to lower your total financed amount and reduce your monthly payment.</p>
+            </details>
+            <details class="faq-item">
+              <summary>What lenders does Northstar Motors work with?</summary>
+              <p>We work with premier national lenders including Capital One Auto, Chase Auto, Ally Financial, local credit unions, and specialized luxury auto lenders.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+    </div> <!-- END VIEW FINANCING -->
+
+    <!-- PAGE VIEW: TRADE-IN -->
+    <div class="page-view" id="view-trade-in">
+      <section class="page-hero">
+        <div class="container">
+          <span class="section-tag">INSTANT APPRAISAL</span>
+          <h1>Your Current Car Could Be Your Next Down Payment.</h1>
+          <p>Tell us what you're driving. We'll help you understand what it's worth and how it could fit into your next purchase.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="trade-in-layout">
+            <div class="form-card">
+              <h3>Vehicle Appraisal Form</h3>
+              <form id="trade-in-form">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Year</label>
+                    <input type="number" id="trade-year" placeholder="e.g. 2020" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Make</label>
+                    <input type="text" id="trade-make" placeholder="e.g. Audi" required>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Model</label>
+                    <input type="text" id="trade-model" placeholder="e.g. Q5 45 TFSI" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Mileage</label>
+                    <input type="number" id="trade-mileage" placeholder="e.g. 35,000" required>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Condition</label>
+                    <select id="trade-condition">
+                      <option value="Excellent">Excellent (Like New, Clean History)</option>
+                      <option value="Good" selected>Good (Minor wear, well maintained)</option>
+                      <option value="Fair">Fair (Noticeable wear or service needed)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>VIN (Optional)</label>
+                    <input type="text" id="trade-vin" placeholder="17-Digit Vehicle Identification Number">
+                  </div>
+                </div>
+
+                <div class="form-divider">Contact Information</div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="trade-name" placeholder="John Smith" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="trade-email" placeholder="john@example.com" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Phone Number</label>
+                  <input type="tel" id="trade-phone" placeholder="(856) 303-7680" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large w-100">Get My Trade Value</button>
+              </form>
+            </div>
+
+            <!-- Instant Trade Valuation Live Preview Card -->
+            <div class="trade-estimate-display" id="trade-estimate-box">
+              <div class="estimate-placeholder">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9C2.1 11.1 2 11.5 2 12v4c0 .6.4 1 1 1h2"></path><circle cx="7" cy="17" r="2"></circle><path d="M9 17h6"></path><circle cx="17" cy="17" r="2"></circle></svg>
+                <h4>Instant Market Appraisal</h4>
+                <p>Fill out the form to receive an immediate market-backed trade valuation estimate for your vehicle.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div> <!-- END VIEW TRADE-IN -->
+
+    <!-- PAGE VIEW: ABOUT -->
+    <div class="page-view" id="view-about">
+      <section class="page-hero">
+        <div class="container">
+          <span class="section-tag">OUR STORY</span>
+          <h1>Built Around Better Car Buying.</h1>
+          <p>Northstar Motors was built on a simple idea: buying a vehicle should feel exciting—not exhausting.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="about-content-grid">
+            <div class="about-text">
+              <h2>A Dealership Built Around You.</h2>
+              <p>We're an independent dealership focused on quality vehicles, honest communication and a better experience from the first click to the moment you drive away.</p>
+              <p>Unlike massive corporate auto groups driven by monthly volume pressure, Northstar Motors operates with an independent editorial mindset: we only sell cars we would proudly drive ourselves.</p>
+              <p>Located in Pennsauken, New Jersey, our modern showroom serves discerning drivers throughout Cherry Hill, Camden County, Philadelphia, and the surrounding tri-state area.</p>
+            </div>
+            <div class="about-image-card">
+              <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80" alt="Northstar Showroom">
+              <div class="image-overlay-badge">Northstar Motors Showroom</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div> <!-- END VIEW ABOUT -->
+
+    <!-- PAGE VIEW: CONTACT -->
+    <div class="page-view" id="view-contact">
+      <section class="page-hero">
+        <div class="container">
+          <span class="section-tag">GET IN TOUCH</span>
+          <h1>Let's Find Your Next Car.</h1>
+          <p>Have a question about a vehicle, financing or your trade? We're here to help.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="contact-grid">
+            <!-- Contact Information -->
+            <div class="contact-info-card">
+              <h3>Northstar Motors</h3>
+              
+              <div class="contact-item">
+                <span class="icon">📍</span>
+                <div>
+                  <strong>Address</strong>
+                  <p>3429 Haddonfield Rd, Pennsauken, NJ 08109</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <span class="icon">📞</span>
+                <div>
+                  <strong>Phone</strong>
+                  <p><a href="tel:8563037680">(856) 303-7680</a></p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <span class="icon">✉️</span>
+                <div>
+                  <strong>Email</strong>
+                  <p><a href="mailto:sales@northstarmotors.com">sales@northstarmotors.com</a></p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <span class="icon">🕒</span>
+                <div>
+                  <strong>Showroom Hours</strong>
+                  <p>Mon – Fri: 9:00 AM – 7:00 PM<br>Saturday: 9:00 AM – 6:00 PM<br>Sunday: Closed</p>
+                </div>
+              </div>
+
+              <!-- Map graphic preview -->
+              <div class="map-preview">
+                <div class="map-pin">📍 Northstar Motors</div>
+                <span>Pennsauken, NJ • Near Route 130 &amp; Cherry Hill Mall</span>
+              </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="form-card">
+              <h3>Send Us a Message</h3>
+              <form id="contact-form">
+                <div class="form-group">
+                  <label>Full Name</label>
+                  <input type="text" placeholder="Sarah Jenkins" required>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="sarah@example.com" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" placeholder="(856) 303-7680">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Topic</label>
+                  <select>
+                    <option>General Inventory Question</option>
+                    <option>Schedule Test Drive</option>
+                    <option>Financing &amp; Rates</option>
+                    <option>Trade-In Valuation</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Message</label>
+                  <textarea rows="4" placeholder="Tell us which vehicle you're interested in or how we can assist you..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-large w-100">Send Us a Message</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div> <!-- END VIEW CONTACT -->
+
+  </main> <!-- END APP VIEWPORT -->
+
+  <!-- MODAL: VEHICLE DETAILS CINEMATIC VIEW -->
+  <div class="modal-backdrop" id="vehicle-detail-modal">
+    <div class="modal-card modal-large">
+      <button class="modal-close" id="close-vehicle-detail-btn">&times;</button>
+
+      <div class="detail-container" id="vehicle-detail-content">
+        <!-- Dynamically injected vehicle specs & gallery -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PRE-APPROVAL / FINANCING -->
+  <div class="modal-backdrop" id="preorder-modal">
+    <div class="modal-card">
+      <button class="modal-close" id="close-preorder-btn">&times;</button>
+      <div class="modal-header">
+        <h2>Northstar Credit Pre-Approval</h2>
+        <p>Fast online pre-approval with zero soft credit impact.</p>
+      </div>
+      <form class="order-form" id="order-form" onsubmit="event.preventDefault();">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Joshua" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Miller" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="joshua@example.com" required>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="(856) 303-7680" required>
+        </div>
+        <div class="form-group">
+          <label>Vehicle Selection</label>
+          <input type="text" id="summary-trim-input" value="Northstar Featured Inventory - BMW M4 Competition" readonly>
+        </div>
+        <button type="submit" class="btn btn-primary btn-large btn-glow" id="confirm-reservation-btn">Submit Pre-Approval Application</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: SCHEDULE TEST DRIVE -->
+  <div class="modal-backdrop" id="testdrive-modal">
+    <div class="modal-card">
+      <button class="modal-close" id="close-testdrive-btn">&times;</button>
+      <div class="modal-header">
+        <h2>Schedule a Test Drive</h2>
+        <p>Northstar Motors • 3429 Haddonfield Road, Pennsauken, NJ 08109</p>
+      </div>
+      <form class="order-form" id="testdrive-form" onsubmit="event.preventDefault();">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Alex Morgan" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Preferred Date</label>
+            <input type="date" required>
+          </div>
+          <div class="form-group">
+            <label>Target Vehicle</label>
+            <input type="text" id="testdrive-vehicle-input" value="2024 BMW M4 Competition">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-large" id="confirm-testdrive-btn">Confirm Test Drive Appointment</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- SUCCESS TOAST NOTIFICATION -->
+  <div class="toast" id="toast-message">
+    <span id="toast-text">Application received! A Northstar Motors specialist will contact you shortly.</span>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">
+            <div class="logo-compass-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 19 21 12 17 5 21 12 2"></polygon></svg>
+            </div>
+            <div class="logo-stack">
+              <span class="logo-text">NORTHSTAR MOTORS</span>
+              <span class="logo-subtext">FIND THE CAR. FEEL THE DIFFERENCE.</span>
+            </div>
+          </div>
+          <p class="footer-tagline">"The right car isn't just transportation. It's the beginning of what's next."</p>
+          <p class="footer-address">3429 Haddonfield Rd, Pennsauken, NJ 08109 • (856) 303-7680</p>
+        </div>
+
+        <div class="footer-links">
+          <h4>Navigation</h4>
+          <button data-page="home">Home</button>
+          <button data-page="inventory">Inventory</button>
+          <button data-page="why-northstar">Why Northstar</button>
+          <button data-page="financing">Financing</button>
+          <button data-page="trade-in">Trade-In</button>
+          <button data-page="about">About</button>
+          <button data-page="contact">Contact</button>
+        </div>
+
+        <div class="footer-links">
+          <h4>Inventory Types</h4>
+          <button data-page="inventory" data-filter-type="SUV">Luxury SUVs</button>
+          <button data-page="inventory" data-filter-type="Truck">Performance Trucks</button>
+          <button data-page="inventory" data-filter-type="Coupe">Sports Coupes</button>
+          <button data-page="inventory" data-filter-type="Sedan">Executive Sedans</button>
+        </div>
+
+        <div class="footer-social">
+          <h4>Connect</h4>
+          <div class="social-icons">
+            <a href="#" aria-label="Instagram">📸 Instagram</a>
+            <a href="#" aria-label="Facebook">📘 Facebook</a>
+            <a href="#" aria-label="YouTube">▶️ YouTube</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Northstar Motors Inc. Independent Dealership in Pennsauken, NJ. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Dealer Disclosures</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript bundle -->
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
