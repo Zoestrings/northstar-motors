@@ -3,27 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Northstar Motors | Premium Independent Car Dealership in Pennsauken, NJ</title>
-  <meta name="description" content="Northstar Motors - Find the Car. Feel the Difference. Carefully selected luxury and performance vehicles, straightforward pricing, and a dealership experience built around you in Pennsauken, NJ.">
+  <title>Northstar Motors | Find the Car. Feel the Difference.</title>
+  <meta name="description" content="Northstar Motors - Find the Car. Feel the Difference. Carefully selected luxury and performance vehicles, straightforward pricing, and a dealership experience built around you.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
 </head>
-<body class="studio-bright-theme">
+<body class="editorial-dark-theme">
 
-  <!-- Sticky Top Navigation Header -->
+  <!-- =====================================================================
+       NAVBAR — 3-zone: Logo+Phone | Nav Center | Browse Inventory CTA
+       ===================================================================== -->
   <header class="navbar" id="site-navbar">
-    <div class="logo" id="logo-home-btn" role="button" tabindex="0">
-      <div class="logo-compass-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 19 21 12 17 5 21 12 2"></polygon></svg>
+
+    <!-- LEFT: Logo + Phone -->
+    <div class="navbar-left">
+      <div class="logo" id="logo-home-btn" role="button" tabindex="0" aria-label="Northstar Motors Homepage">
+        <div class="logo-crest-wrap">
+          <svg class="brand-crest" width="34" height="34" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="crestGoldNav" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#fef08a" />
+                <stop offset="45%" stop-color="#f59e0b" />
+                <stop offset="100%" stop-color="#b45309" />
+              </linearGradient>
+              <linearGradient id="facetLNav" x1="16" y1="16" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
+                <stop offset="100%" stop-color="#f59e0b" />
+              </linearGradient>
+              <linearGradient id="facetDNav" x1="48" y1="16" x2="16" y2="48" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#d97706" />
+                <stop offset="100%" stop-color="#78350f" />
+              </linearGradient>
+              <linearGradient id="ringGradNav" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="rgba(255, 255, 255, 0.65)" />
+                <stop offset="50%" stop-color="rgba(245, 158, 11, 0.5)" />
+                <stop offset="100%" stop-color="rgba(255, 255, 255, 0.15)" />
+              </linearGradient>
+            </defs>
+            <circle cx="32" cy="32" r="30" stroke="url(#ringGradNav)" stroke-width="1.75" />
+            <circle cx="32" cy="32" r="25.5" stroke="rgba(255, 255, 255, 0.18)" stroke-width="0.75" stroke-dasharray="2 3" />
+            <line x1="32" y1="2" x2="32" y2="6.5" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" />
+            <line x1="32" y1="57.5" x2="32" y2="62" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" />
+            <line x1="2" y1="32" x2="6.5" y2="32" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" />
+            <line x1="57.5" y1="32" x2="62" y2="32" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" />
+            <polygon points="32,7 32,32 25,32" fill="url(#facetLNav)" />
+            <polygon points="32,7 39,32 32,32" fill="url(#facetDNav)" />
+            <polygon points="32,57 32,32 39,32" fill="url(#facetLNav)" />
+            <polygon points="32,57 25,32 32,32" fill="url(#facetDNav)" />
+            <polygon points="57,32 32,25 32,32" fill="url(#facetLNav)" />
+            <polygon points="57,32 32,32 32,39" fill="url(#facetDNav)" />
+            <polygon points="7,32 32,32 32,25" fill="url(#facetDNav)" />
+            <polygon points="7,32 32,39 32,32" fill="url(#facetLNav)" />
+            <polygon points="32,27 37,32 32,37 27,32" fill="#ffffff" />
+          </svg>
+        </div>
+        <div class="logo-stack">
+          <span class="logo-text">NORTHSTAR</span>
+          <span class="logo-subtext">MOTORS</span>
+        </div>
       </div>
-      <div class="logo-stack">
-        <span class="logo-text">NORTHSTAR MOTORS</span>
-        <span class="logo-subtext">FIND THE CAR. FEEL THE DIFFERENCE.</span>
-      </div>
+      <a href="tel:8563037680" class="navbar-phone">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.86-1.14a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.22v1.7z"/></svg>
+        (856) 303-7680
+      </a>
     </div>
 
+    <!-- CENTER: Nav Links Pill Strip -->
     <nav class="nav-links">
       <button class="nav-link active" data-page="home">Home</button>
       <button class="nav-link" data-page="inventory">Inventory</button>
@@ -34,31 +81,39 @@
       <button class="nav-link" data-page="contact">Contact</button>
     </nav>
 
+    <!-- RIGHT: Single High-Contrast CTA + Mobile Toggle -->
     <div class="header-actions">
-      <a href="tel:8563037680" class="btn btn-icon btn-phone" title="Call Northstar Motors">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-        <span>(856) 303-7680</span>
-      </a>
-
-      <button class="btn btn-icon" id="audio-rev-btn" title="Rev Engine Audio">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-        <span>Rev Engine</span>
-      </button>
-
-      <button class="btn btn-outline nav-cta-secondary" data-page="trade-in">Value My Trade</button>
-      <button class="btn btn-primary nav-cta-primary" data-page="inventory">Browse Inventory</button>
-
-      <!-- Mobile Menu Toggle -->
+      <button class="btn btn-nav-primary" data-page="inventory">Browse Inventory &rarr;</button>
       <button class="mobile-toggle-btn" id="mobile-menu-toggle" aria-label="Toggle Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
+
   </header>
 
   <!-- Mobile Drawer Navigation -->
   <div class="mobile-menu-overlay" id="mobile-menu">
     <div class="mobile-menu-header">
-      <span class="logo-text">NORTHSTAR MOTORS</span>
+      <div class="logo">
+        <div class="logo-crest-wrap">
+          <svg class="brand-crest" width="30" height="30" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="30" stroke="url(#ringGradNav)" stroke-width="1.75" />
+            <polygon points="32,7 32,32 25,32" fill="url(#facetLNav)" />
+            <polygon points="32,7 39,32 32,32" fill="url(#facetDNav)" />
+            <polygon points="32,57 32,32 39,32" fill="url(#facetLNav)" />
+            <polygon points="32,57 25,32 32,32" fill="url(#facetDNav)" />
+            <polygon points="57,32 32,25 32,32" fill="url(#facetLNav)" />
+            <polygon points="57,32 32,32 32,39" fill="url(#facetDNav)" />
+            <polygon points="7,32 32,32 32,25" fill="url(#facetDNav)" />
+            <polygon points="7,32 32,39 32,32" fill="url(#facetLNav)" />
+            <polygon points="32,27 37,32 32,37 27,32" fill="#ffffff" />
+          </svg>
+        </div>
+        <div class="logo-stack">
+          <span class="logo-text">NORTHSTAR</span>
+          <span class="logo-subtext">MOTORS</span>
+        </div>
+      </div>
       <button class="mobile-close-btn" id="close-mobile-menu">&times;</button>
     </div>
     <nav class="mobile-nav-links">
@@ -73,7 +128,10 @@
     <div class="mobile-menu-actions">
       <button class="btn btn-primary btn-large w-100" data-page="inventory">Browse Inventory</button>
       <button class="btn btn-outline btn-large w-100" data-page="trade-in">Value My Trade</button>
-      <a href="tel:8563037680" class="mobile-phone-link">📞 (856) 303-7680</a>
+      <a href="tel:8563037680" class="mobile-phone-link">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:6px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.86-1.14a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.22v1.7z"/></svg>
+        (856) 303-7680
+      </a>
     </div>
   </div>
 
@@ -83,193 +141,231 @@
     <!-- PAGE VIEW: HOME -->
     <div class="page-view active" id="view-home">
 
-      <!-- 3D HERO LANDING SECTION (VISUAL CENTERPIECE) -->
+      <!-- ===================================================================
+           HERO SECTION — Split-Screen Layout
+           Left: Editorial content  |  Right: 3D Car Viewer
+           =================================================================== -->
       <section class="hero-3d-section" id="hero-section">
-        <!-- 3D Canvas Background -->
-        <div id="canvas-container">
-          <canvas id="webgl-canvas"></canvas>
-        </div>
 
-        <!-- Interactive Hint Banner -->
-        <div class="cube-hint-banner" id="cube-hint">
-          <div class="hint-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="12 8 8 12 12 16 16 12 12 8"></polygon></svg>
+        <!-- ─── LEFT COLUMN: Content ─────────────────────────────────── -->
+        <div class="hero-left-col">
+
+          <!-- Top Content Block (Headline & Text) -->
+          <div class="hero-content-top">
+            <!-- Tagline / Eyebrow -->
+            <div class="hero-series-tag">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"/></svg>
+              2024 PORSCHE PERFORMANCE
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="hero-split-title">
+              PORSCHE<br>
+              <span class="hero-split-accent">RAW POWER.</span><br>
+              <span class="hero-split-italic">Timeless Design.</span>
+            </h1>
+
+            <!-- Short descriptive paragraph -->
+            <p class="hero-split-desc">
+              Engineered for pure exhilaration. The 2024 Porsche Panamera Turbo S combines race-bred twin-turbo performance with grand touring luxury, signature continuous LED lightbar styling, and legendary German handling.
+            </p>
           </div>
-          <span><strong>Northstar 3D Studio:</strong> Move cursor to explore cinematic angles. Hover over vehicle for intelligent LED headlights.</span>
-          <button class="hint-close" id="close-hint-btn">&times;</button>
-        </div>
 
-        <!-- HUD Overlay Elements -->
-        <div class="hud-container">
-          <!-- Hero Titles & Specs HUD -->
-          <div class="hero-hud">
-            <div class="badge">CAREFULLY SELECTED • TRANSPARENT BUYING • BUILT AROUND YOU</div>
-            <h1 class="car-title">NORTHSTAR <span class="edition">2024 PERFORMANCE SERIES</span></h1>
-            <p class="car-tagline">3429 Haddonfield Rd, Pennsauken NJ • Serving Cherry Hill, Philadelphia &amp; Beyond</p>
-
-            <div class="hud-specs">
-              <div class="spec-card">
-                <span class="spec-val" id="spec-accel">2.5s</span>
-                <span class="spec-lbl">0-60 MPH</span>
+          <!-- Bottom Content Block (Specs & CTA Buttons) -->
+          <div class="hero-content-bottom">
+            <!-- Quick Specs Grid / Minimal Pills -->
+            <div class="hero-specs-pills">
+              <div class="spec-pill">
+                <span class="pill-value">620 <small>HP</small></span>
+                <span class="pill-label">Twin-Turbo V8</span>
               </div>
-              <div class="spec-card">
-                <span class="spec-val" id="spec-speed">1,001 <small>HP</small></span>
-                <span class="spec-lbl">Max Power</span>
+              <div class="spec-pill">
+                <span class="pill-value">2.8<small>s</small></span>
+                <span class="pill-label">0–60 MPH</span>
               </div>
-              <div class="spec-card">
-                <span class="spec-val" id="spec-hp">100%</span>
-                <span class="spec-lbl">Pre-Approved</span>
-              </div>
-              <div class="spec-card">
-                <span class="spec-val" id="spec-range">$0</span>
-                <span class="spec-lbl">Hidden Fees</span>
+              <div class="spec-pill">
+                <span class="pill-value">196 <small>MPH</small></span>
+                <span class="pill-label">Top Speed</span>
               </div>
             </div>
 
-            <!-- Minimal Vehicle Information Card -->
-            <div class="hero-vehicle-info-card">
-              <div class="info-tag-row">
-                <span class="info-tag">2024 PERFORMANCE SERIES</span>
-                <span class="info-status">Ready for Delivery</span>
-              </div>
-              <h4>Built for the road ahead.</h4>
-              <p>Handcrafted twin-turbo V8 powertrain, carbon monocoque chassis, and active aerodynamics.</p>
-              <button class="btn btn-outline view-details-link" data-page="inventory">View Details &rarr;</button>
+            <!-- Primary Action buttons: Schedule Test Drive (primary) & Explore Details (secondary) -->
+            <div class="hero-cta-row">
+              <button class="btn btn-hero-primary" id="hero-schedule-testdrive-btn">
+                Schedule Test Drive &rarr;
+              </button>
+              <button class="btn btn-hero-ghost view-vehicle-btn" data-id="ns-004">
+                Explore Details
+              </button>
             </div>
           </div>
 
-          <!-- Camera Orbit Quick Controls -->
-          <div class="camera-presets">
-            <span class="preset-label">Angles</span>
+        </div>
+        <!-- ─── END LEFT COLUMN ──────────────────────────────────────── -->
+
+        <!-- ─── RIGHT COLUMN: 3D Viewer ──────────────────────────────── -->
+        <div class="hero-right-col">
+
+          <!-- 3D Canvas fills entire right column -->
+          <div id="canvas-container">
+            <canvas id="webgl-canvas"></canvas>
+          </div>
+
+          <!-- Drag hint pill — top-right of viewer -->
+          <div class="turntable-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            <span>Drag to rotate 360°</span>
+          </div>
+
+          <!-- Camera angle presets — bottom left of 3D viewer -->
+          <div class="camera-presets" id="camera-presets-bar">
+            <span class="preset-label">VIEW</span>
             <button class="preset-btn active" data-preset="hero">Hero 3/4</button>
-            <button class="preset-btn" data-preset="front">Front Grille</button>
-            <button class="preset-btn" data-preset="side">Side Profile</button>
-            <button class="preset-btn" data-preset="rear">Quad Exhaust</button>
-            <button class="preset-btn" data-preset="wheels">Forged Rims</button>
-            <button class="preset-btn" data-preset="top">Top Down</button>
+            <button class="preset-btn" data-preset="rear">Rear Bar</button>
+            <button class="preset-btn" data-preset="side">Side</button>
+            <button class="preset-btn" data-preset="front">Front</button>
           </div>
 
-          <!-- 3D Hotspot Tooltips on Car -->
-          <div class="hotspot-pin" id="hotspot-engine" style="top: 45%; left: 62%;">
-            <div class="pin-pulse"></div>
-            <div class="pin-card">
-              <h4>Northstar 150-Point Inspection</h4>
-              <p>Every vehicle evaluated for mechanical excellence, history, and long-term reliability.</p>
-            </div>
-          </div>
+          <!-- Clean Scroll to explore prompt — bottom right of 3D viewer -->
+          <button class="hero-scroll-prompt" id="scroll-down-btn" aria-label="Scroll to explore inventory">
+            <span>Scroll to explore inventory</span>
+            <svg class="scroll-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 10l5 5 5-5"/></svg>
+          </button>
 
-          <div class="hotspot-pin" id="hotspot-brakes" style="top: 58%; left: 52%;">
-            <div class="pin-pulse"></div>
-            <div class="pin-card">
-              <h4>Performance Carbon Brakes</h4>
-              <p>Brembo-style drilled carbon-ceramic rotors with multi-piston sport calipers.</p>
-            </div>
-          </div>
+        </div>
+        <!-- ─── END RIGHT COLUMN ─────────────────────────────────────── -->
 
-          <div class="hotspot-pin" id="hotspot-spoiler" style="top: 42%; left: 78%;">
-            <div class="pin-pulse"></div>
-            <div class="pin-card">
-              <h4>Active Aerodynamic Wing</h4>
-              <p>Precision dynamic bodywork engineered for high-speed downforce and stability.</p>
-            </div>
-          </div>
+        <!-- ─── CUSTOMIZE STUDIO DRAWER (hidden by default) ──────────── -->
+        <!-- Refined floating trigger tab on right edge -->
+        <button class="studio-tab" id="studio-drawer-tab" aria-label="Open Vehicle Customizer">
+          <span class="studio-tab-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          </span>
+          <span class="studio-tab-text">Customize Vehicle</span>
+        </button>
 
-          <!-- Customization Studio Drawer -->
-          <aside class="customizer-panel" id="customizer-drawer">
+        <!-- Studio Drawer Panel -->
+        <div class="studio-drawer" id="studio-drawer">
+          <div class="studio-drawer-inner">
             <div class="drawer-header">
-              <h2>Northstar 3D Studio</h2>
-              <span class="drawer-subtitle">Personalize finish, rims &amp; studio lighting</span>
+              <div>
+                <h2>Northstar 3D Studio</h2>
+                <p class="drawer-subtitle">Live Configurator</p>
+              </div>
+              <button class="drawer-close-btn" id="studio-drawer-close">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
             </div>
 
-            <!-- Environment Theme Toggle -->
+            <!-- Lighting -->
             <div class="control-group">
               <label>Showroom Lighting</label>
               <div class="toggle-switch-grid">
-                <button class="env-btn active" data-env="dark">Night Studio</button>
-                <button class="env-btn" data-env="bright">Bright Studio</button>
-                <button class="env-btn" data-env="sunset">Golden Sunset</button>
+                <button class="env-btn active" data-env="studio">Studio</button>
+                <button class="env-btn" data-env="sunset">Sunset</button>
+                <button class="env-btn" data-env="night">Night</button>
               </div>
             </div>
 
-            <!-- Paint Color Swatches -->
+            <!-- Paint -->
             <div class="control-group">
-              <label>Exterior Paint: <span id="color-name-display">Phantom Jet Black</span></label>
+              <label>Exterior Paint — <span id="color-name-display">Jet Black Metallic</span></label>
               <div class="color-swatch-grid">
-                <button class="swatch active" data-color="#0a0b0e" data-name="Phantom Jet Black" style="background: #0a0b0e;"></button>
-                <button class="swatch" data-color="#ff5500" data-name="Apex Orange" style="background: #ff5500;"></button>
-                <button class="swatch" data-color="#c8102e" data-name="Crimson Red" style="background: #c8102e;"></button>
-                <button class="swatch" data-color="#0f52ba" data-name="Sapphire Blue" style="background: #0f52ba;"></button>
-                <button class="swatch" data-color="#d4af37" data-name="Metallic Gold" style="background: #d4af37;"></button>
-                <button class="swatch" data-color="#33cc33" data-name="Verde Acid Green" style="background: #33cc33;"></button>
-                <button class="swatch" data-color="#f4f5f7" data-name="Glacier White" style="background: #f4f5f7;"></button>
+                <button class="swatch active" data-color="#121418" data-name="Jet Black Metallic" style="background:#121418" title="Jet Black Metallic"></button>
+                <button class="swatch" data-color="#3d444d" data-name="Volcano Grey Metallic" style="background:#3d444d" title="Volcano Grey Metallic"></button>
+                <button class="swatch" data-color="#c1121f" data-name="Carmine Red" style="background:#c1121f" title="Carmine Red"></button>
+                <button class="swatch" data-color="#f8fafc" data-name="Carrara White" style="background:#f8fafc;border-color:#ccc" title="Carrara White"></button>
+                <button class="swatch" data-color="#104f55" data-name="Gentian Blue Metallic" style="background:#104f55" title="Gentian Blue Metallic"></button>
+                <button class="swatch" data-color="#1a4a2e" data-name="Racing Green" style="background:#1a4a2e" title="Racing Green"></button>
               </div>
             </div>
 
-            <!-- Material Finish -->
+            <!-- Finish -->
             <div class="control-group">
               <label>Finish Style</label>
               <div class="segmented-control">
-                <button class="segment active" data-finish="metallic">Gloss Metallic</button>
-                <button class="segment" data-finish="matte">Stealth Matte</button>
-                <button class="segment" data-finish="carbon">Full Carbon</button>
+                <button class="segment active" data-finish="gloss">Gloss</button>
+                <button class="segment" data-finish="matte">Matte</button>
+                <button class="segment" data-finish="frozen">Frozen</button>
               </div>
             </div>
 
-            <!-- Rim Design -->
+            <!-- Wheels -->
             <div class="control-group">
-              <label>Wheel Rims</label>
+              <label>Rim Design</label>
               <div class="segmented-control">
-                <button class="segment active" data-rim="black">Forged Jet Black</button>
-                <button class="segment" data-rim="chrome">Titanium Silver</button>
-                <button class="segment" data-rim="gold">Bronze Diamond Cut</button>
+                <button class="segment active" data-rim="sport">Sport</button>
+                <button class="segment" data-rim="classic">Classic</button>
+                <button class="segment" data-rim="aero">Aero</button>
               </div>
             </div>
 
-            <!-- Interactive Car Controls -->
+            <!-- Interactive Controls -->
             <div class="control-group">
-              <label>Interactive Parts</label>
+              <label>Interactive Controls</label>
               <div class="btn-grid">
-                <button class="btn btn-outline" id="toggle-doors-btn">Scissor Doors</button>
-                <button class="btn btn-outline" id="toggle-spoiler-btn">Active Wing</button>
-                <button class="btn btn-outline" id="toggle-lights-btn">Matrix LEDs</button>
-                <button class="btn btn-outline" id="toggle-xray-btn">X-Ray Specs</button>
+                <button class="btn btn-outline" id="toggle-doors-btn">Doors</button>
+                <button class="btn btn-outline" id="toggle-spoiler-btn">Spoiler</button>
+                <button class="btn btn-outline" id="toggle-lights-btn">Lights</button>
+                <button class="btn btn-outline" id="toggle-xray-btn">X-Ray</button>
               </div>
             </div>
 
-            <!-- Price summary & Pre-order CTA -->
+            <!-- Price Footer -->
             <div class="price-footer">
               <div class="price-info">
-                <span class="price-label">Transparent Price</span>
-                <span class="price-amount" id="total-price-display">$78,900</span>
-                <span class="finance-est">Est. $980 / mo with Northstar Financing</span>
+                <span class="price-label">ASKING PRICE</span>
+                <span class="price-amount">$78,900</span>
+                <span class="finance-est">Est. $1,124/mo · 72-month · OAC</span>
               </div>
-              <button class="btn btn-primary btn-large btn-glow" id="open-preorder-modal">Get Pre-Approved Instantly</button>
+              <button class="btn btn-primary btn-large w-100 view-vehicle-btn" data-id="ns-001">View Full Details</button>
             </div>
-          </aside>
+          </div>
         </div>
+        <!-- ─── END STUDIO DRAWER ────────────────────────────────────── -->
 
-        <!-- Scroll Indicator Arrow -->
-        <div class="hero-scroll-down" id="scroll-down-btn">
-          <span>EXPLORE DEALERSHIP</span>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M12 6v12"></path></svg>
+      </section>
+
+      <!-- ===================================================================
+           STATS BAR / TRUST BADGES (Full-width transition strip directly under hero)
+           =================================================================== -->
+      <section class="hero-trust-strip" id="hero-trust-strip">
+        <div class="container trust-strip-inner">
+          <div class="trust-stat-item">
+            <span class="trust-stat-val">250<span class="accent-symbol">+</span></span>
+            <span class="trust-stat-lbl">Certified Vehicles</span>
+          </div>
+          <div class="trust-stat-divider"></div>
+          <div class="trust-stat-item">
+            <span class="trust-stat-val">99<span class="accent-symbol">%</span></span>
+            <span class="trust-stat-lbl">Customer Satisfaction</span>
+          </div>
+          <div class="trust-stat-divider"></div>
+          <div class="trust-stat-item">
+            <span class="trust-stat-val">15<span class="accent-symbol">+</span></span>
+            <span class="trust-stat-lbl">Industry Awards</span>
+          </div>
+          <div class="trust-stat-divider"></div>
+          <div class="trust-stat-item">
+            <span class="trust-stat-val">$0</span>
+            <span class="trust-stat-lbl">Hidden Dealer Fees</span>
+          </div>
         </div>
       </section>
 
-      <!-- 01 — FEATURED INVENTORY -->
-      <section class="section section-dark-accent" id="featured-inventory-section">
+      <!-- 01 — FEATURED INVENTORY (CLEAN EDITORIAL OFF-WHITE SECTION) -->
+      <section class="section section-featured-editorial" id="featured-inventory-section">
         <div class="container">
-          <div class="section-header center-align">
-            <span class="section-tag">CURATED SELECTION</span>
-            <h2 class="section-title">Cars Worth Taking a Second Look At.</h2>
-            <p class="section-subtitle">Every vehicle in our showroom is hand-selected, rigorously inspected, and ready for its next chapter.</p>
+          <div class="section-editorial-header">
+            <span class="section-tag-editorial">FEATURED INVENTORY</span>
+            <div class="section-title-editorial-row">
+              <h2 class="section-title-editorial">Cars Worth Taking a <span class="italic-serif">Second</span> Look At.</h2>
+              <button class="view-all-editorial-link" data-page="inventory">View All Inventory &rarr;</button>
+            </div>
           </div>
 
           <div class="inventory-grid" id="featured-inventory-grid">
             <!-- Dynamically injected featured cars -->
-          </div>
-
-          <div class="section-actions center-align">
-            <button class="btn btn-primary btn-large" data-page="inventory">View All Inventory &rarr;</button>
           </div>
         </div>
       </section>
@@ -306,37 +402,83 @@
 
           <div class="categories-grid">
             <div class="category-card" data-category="SUV">
-              <div class="category-icon">🚙</div>
+              <div class="category-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9C2.1 11 2 11.3 2 11.7V16c0 .6.4 1 1 1h2"/>
+                  <circle cx="7" cy="17" r="2"/>
+                  <path d="M9 17h6"/>
+                  <circle cx="17" cy="17" r="2"/>
+                </svg>
+              </div>
               <h3>SUVs</h3>
               <p>Versatile luxury, command position &amp; capability.</p>
               <span class="category-link">Explore SUVs &rarr;</span>
             </div>
             <div class="category-card" data-category="Truck">
-              <div class="category-icon">🛻</div>
+              <div class="category-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 17h1"/>
+                  <circle cx="17" cy="17" r="2"/>
+                  <path d="M19 17h2c.6 0 1-.4 1-1v-4l-3-4h-5v9"/>
+                  <path d="M14 8H4c-.6 0-1 .4-1 1v7c0 .6.4 1 1 1h1"/>
+                  <circle cx="7" cy="17" r="2"/>
+                  <path d="M9 17h5"/>
+                </svg>
+              </div>
               <h3>TRUCKS</h3>
               <p>Unmatched towing, utility &amp; premium comfort.</p>
               <span class="category-link">Explore Trucks &rarr;</span>
             </div>
             <div class="category-card" data-category="Sedan">
-              <div class="category-icon">🚘</div>
+              <div class="category-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 17h2c.6 0 1-.4 1-1v-3.5c0-.8-.5-1.5-1.2-1.8L18 9.5c-.8-.5-1.8-.8-2.8-.8H8.8c-1 0-2 .3-2.8.8l-2.8 1.2c-.7.3-1.2 1-1.2 1.8V16c0 .6.4 1 1 1h2"/>
+                  <circle cx="7" cy="17" r="2"/>
+                  <path d="M9 17h6"/>
+                  <circle cx="17" cy="17" r="2"/>
+                </svg>
+              </div>
               <h3>SEDANS</h3>
               <p>Sleek design, executive ride &amp; efficiency.</p>
               <span class="category-link">Explore Sedans &rarr;</span>
             </div>
             <div class="category-card" data-category="Coupe">
-              <div class="category-icon">🏎️</div>
+              <div class="category-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 17h-2c-.6 0-1-.4-1-1v-2.5c0-.8.5-1.5 1.2-1.8l3.3-1.4C7.7 9.8 9 9.5 10.3 9.5h4.2c1.4 0 2.8.5 3.9 1.4l3.1 2.3c.9.7 1.5 1.7 1.5 2.8V16c0 .6-.4 1-1 1h-2"/>
+                  <circle cx="7" cy="17" r="2"/>
+                  <path d="M9 17h6"/>
+                  <circle cx="17" cy="17" r="2"/>
+                </svg>
+              </div>
               <h3>COUPES</h3>
               <p>Aggressive styling, twin-turbo power &amp; agility.</p>
               <span class="category-link">Explore Coupes &rarr;</span>
             </div>
             <div class="category-card" data-category="Luxury">
-              <div class="category-icon">✨</div>
+              <div class="category-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="6 3 18 3 22 9 12 22 2 9 6 3"/>
+                  <line x1="2" y1="9" x2="22" y2="9"/>
+                  <line x1="12" y1="22" x2="8" y2="9"/>
+                  <line x1="12" y1="22" x2="16" y2="9"/>
+                </svg>
+              </div>
               <h3>LUXURY</h3>
-              <p>High-line craftsmanship &amp; cutting-edge tech.</p>
+              <p>High-line craftsmanship &amp; precision engineering.</p>
               <span class="category-link">Explore Luxury &rarr;</span>
             </div>
             <div class="category-card" data-category="Sport">
-              <div class="category-icon">🏁</div>
+              <div class="category-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v2"/>
+                  <path d="M6 12h2"/>
+                  <path d="M18 12h-2"/>
+                  <path d="m14 14-4-4"/>
+                  <circle cx="12" cy="12" r="1.5"/>
+                </svg>
+              </div>
               <h3>SPORT</h3>
               <p>Track-tested performance &amp; raw acceleration.</p>
               <span class="category-link">Explore Sports &rarr;</span>
@@ -408,15 +550,27 @@
 
           <div class="testimonials-grid">
             <div class="testimonial-card">
-              <div class="stars">★★★★★</div>
-              <p>"Buying my BMW M4 here was the smoothest dealership experience I've had in 15 years. No pushy add-ons, transparent numbers, and total respect for my time."</p>
+              <div class="stars" aria-label="5 out of 5 stars">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <p>"Purchasing my Porsche here was the smoothest dealership experience I've had in 15 years. No pushy add-ons, transparent numbers, and total respect for my time."</p>
               <div class="reviewer">
                 <strong>Marcus Vance</strong>
-                <span>Purchased 2024 BMW M4</span>
+                <span>Purchased 2024 Porsche Panamera</span>
               </div>
             </div>
             <div class="testimonial-card">
-              <div class="stars">★★★★★</div>
+              <div class="stars" aria-label="5 out of 5 stars">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
               <p>"They gave me $2,400 more for my trade-in than the big corporate lot down the road. Honest people who actually know cars."</p>
               <div class="reviewer">
                 <strong>Elena Rostova</strong>
@@ -424,8 +578,14 @@
               </div>
             </div>
             <div class="testimonial-card">
-              <div class="stars">★★★★★</div>
-              <p>"Northstar made the financing process seamless. I got pre-approved online, test drove the F-150, and drove home in less than an hour."</p>
+              <div class="stars" aria-label="5 out of 5 stars">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <p>"Northstar made the financing process straightforward. I got pre-approved online, test drove the F-150, and drove home in less than an hour."</p>
               <div class="reviewer">
                 <strong>David K.</strong>
                 <span>Purchased Ford F-150 Lariat</span>
@@ -693,10 +853,10 @@
               <p>Know your buying power before visiting the lot. Our soft-pull pre-qualification provides exact rates without affecting your credit score.</p>
               
               <ul class="check-list">
-                <li>✓ Soft credit check — zero impact on your credit score</li>
-                <li>✓ Rates starting as low as 4.99% APR</li>
-                <li>✓ Terms up to 72 months available</li>
-                <li>✓ Competitive financing for prime &amp; subprime buyers</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-right:8px;"><polyline points="20 6 9 17 4 12"/></svg> Soft credit check — zero impact on your credit score</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-right:8px;"><polyline points="20 6 9 17 4 12"/></svg> Competitive rates starting from 4.99% APR</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-right:8px;"><polyline points="20 6 9 17 4 12"/></svg> Terms up to 72 months available</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-right:8px;"><polyline points="20 6 9 17 4 12"/></svg> Direct relationships with local New Jersey credit unions &amp; prime lenders</li>
               </ul>
 
               <button class="btn btn-primary btn-large w-100" id="open-financing-prequal-btn">Explore Your Options</button>
@@ -865,41 +1025,52 @@
               <h3>Northstar Motors</h3>
               
               <div class="contact-item">
-                <span class="icon">📍</span>
+                <span class="icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </span>
                 <div>
-                  <strong>Address</strong>
+                  <strong>Showroom Location</strong>
                   <p>3429 Haddonfield Rd, Pennsauken, NJ 08109</p>
                 </div>
               </div>
 
               <div class="contact-item">
-                <span class="icon">📞</span>
+                <span class="icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.86-1.14a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.22v1.7z"/></svg>
+                </span>
                 <div>
-                  <strong>Phone</strong>
+                  <strong>Direct Line</strong>
                   <p><a href="tel:8563037680">(856) 303-7680</a></p>
                 </div>
               </div>
 
               <div class="contact-item">
-                <span class="icon">✉️</span>
+                <span class="icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </span>
                 <div>
-                  <strong>Email</strong>
+                  <strong>Client Services</strong>
                   <p><a href="mailto:sales@northstarmotors.com">sales@northstarmotors.com</a></p>
                 </div>
               </div>
 
               <div class="contact-item">
-                <span class="icon">🕒</span>
+                <span class="icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </span>
                 <div>
-                  <strong>Showroom Hours</strong>
+                  <strong>Dealership Hours</strong>
                   <p>Mon – Fri: 9:00 AM – 7:00 PM<br>Saturday: 9:00 AM – 6:00 PM<br>Sunday: Closed</p>
                 </div>
               </div>
 
               <!-- Map graphic preview -->
               <div class="map-preview">
-                <div class="map-pin">📍 Northstar Motors</div>
-                <span>Pennsauken, NJ • Near Route 130 &amp; Cherry Hill Mall</span>
+                <div class="map-pin">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  Northstar Motors Showroom
+                </div>
+                <span>Pennsauken, NJ • Convenient to Route 130, Route 73 &amp; Betsy Ross Bridge</span>
               </div>
             </div>
 
@@ -984,7 +1155,7 @@
         </div>
         <div class="form-group">
           <label>Vehicle Selection</label>
-          <input type="text" id="summary-trim-input" value="Northstar Featured Inventory - BMW M4 Competition" readonly>
+          <input type="text" id="summary-trim-input" value="Northstar Featured Inventory - Porsche Panamera Turbo S" readonly>
         </div>
         <button type="submit" class="btn btn-primary btn-large btn-glow" id="confirm-reservation-btn">Submit Pre-Approval Application</button>
       </form>
@@ -1011,7 +1182,7 @@
           </div>
           <div class="form-group">
             <label>Target Vehicle</label>
-            <input type="text" id="testdrive-vehicle-input" value="2024 BMW M4 Competition">
+            <input type="text" id="testdrive-vehicle-input" value="2024 Porsche Panamera Turbo S">
           </div>
         </div>
         <button type="submit" class="btn btn-primary btn-large" id="confirm-testdrive-btn">Confirm Test Drive Appointment</button>
@@ -1030,16 +1201,28 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="logo">
-            <div class="logo-compass-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 19 21 12 17 5 21 12 2"></polygon></svg>
+            <div class="logo-crest-wrap">
+              <svg class="brand-crest" width="34" height="34" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="32" cy="32" r="30" stroke="url(#ringGradNav)" stroke-width="1.75" />
+                <polygon points="32,7 32,32 25,32" fill="url(#facetLNav)" />
+                <polygon points="32,7 39,32 32,32" fill="url(#facetDNav)" />
+                <polygon points="32,57 32,32 39,32" fill="url(#facetLNav)" />
+                <polygon points="32,57 25,32 32,32" fill="url(#facetDNav)" />
+                <polygon points="57,32 32,25 32,32" fill="url(#facetLNav)" />
+                <polygon points="57,32 32,32 32,39" fill="url(#facetDNav)" />
+                <polygon points="7,32 32,32 32,25" fill="url(#facetDNav)" />
+                <polygon points="7,32 32,39 32,32" fill="url(#facetLNav)" />
+                <polygon points="32,27 37,32 32,37 27,32" fill="#ffffff" />
+              </svg>
             </div>
             <div class="logo-stack">
-              <span class="logo-text">NORTHSTAR MOTORS</span>
-              <span class="logo-subtext">FIND THE CAR. FEEL THE DIFFERENCE.</span>
+              <span class="logo-text">NORTHSTAR</span>
+              <span class="logo-subtext">MOTORS</span>
             </div>
           </div>
-          <p class="footer-tagline">"The right car isn't just transportation. It's the beginning of what's next."</p>
-          <p class="footer-address">3429 Haddonfield Rd, Pennsauken, NJ 08109 • (856) 303-7680</p>
+          <p class="footer-tagline">"Selection, transparency, and certified luxury performance for New Jersey drivers."</p>
+          <p class="footer-address">3429 Haddonfield Rd, Pennsauken, NJ 08109 • Direct: (856) 303-7680</p>
+          <p class="footer-credentials" style="font-size: 0.72rem; color: #64748b; margin-top: 6px;">NJ MVC Licensed Dealership • CARFAX Certified Inventory</p>
         </div>
 
         <div class="footer-links">
@@ -1062,11 +1245,20 @@
         </div>
 
         <div class="footer-social">
-          <h4>Connect</h4>
+          <h4>Showroom Channels</h4>
           <div class="social-icons">
-            <a href="#" aria-label="Instagram">📸 Instagram</a>
-            <a href="#" aria-label="Facebook">📘 Facebook</a>
-            <a href="#" aria-label="YouTube">▶️ YouTube</a>
+            <a href="#" aria-label="Instagram">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:4px;"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              Instagram
+            </a>
+            <a href="#" aria-label="Facebook">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              Facebook
+            </a>
+            <a href="#" aria-label="YouTube">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+              YouTube
+            </a>
           </div>
         </div>
       </div>
