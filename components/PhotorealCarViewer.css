@@ -1,0 +1,220 @@
+/* ==========================================================================
+   NORTHSTAR MOTORS — PHOTOREAL CAR VIEWER STYLES
+   Styles for Threepipe container, loading skeleton, error fallback & angles
+   ========================================================================== */
+
+.photoreal-viewer-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, #11141c 0%, #07080b 100%);
+}
+
+.photoreal-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  cursor: grab;
+  outline: none;
+}
+
+.photoreal-canvas:active {
+  cursor: grabbing;
+}
+
+/* ---- LOADING SKELETON & SPINNER ---- */
+.photoreal-loader-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(7, 8, 11, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  gap: 16px;
+  transition: opacity 0.4s ease;
+}
+
+.photoreal-spinner-ring {
+  width: 52px;
+  height: 52px;
+  border: 3px solid rgba(255, 255, 255, 0.08);
+  border-top-color: #38bdf8;
+  border-right-color: #38bdf8;
+  border-radius: 50%;
+  animation: photorealSpin 1s cubic-bezier(0.55, 0.15, 0.45, 0.85) infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner-core {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #38bdf8 0%, transparent 70%);
+}
+
+@keyframes photorealSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.photoreal-loader-text {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.photoreal-progress-bar {
+  width: 180px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.photoreal-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0284c7, #38bdf8);
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+/* ---- GRACEFUL ERROR STATE ---- */
+.photoreal-error-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(7, 8, 11, 0.95);
+  padding: 24px;
+  text-align: center;
+  gap: 12px;
+}
+
+.error-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #f87171;
+}
+
+.error-sub {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  max-width: 320px;
+}
+
+.error-retry-btn {
+  background: #ffffff;
+  color: #0b0d11;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  margin-top: 8px;
+}
+
+.error-retry-btn:hover {
+  background: #f1f5f9;
+  transform: translateY(-2px);
+}
+
+/* ---- CAMERA ANGLES BAR ---- */
+.photoreal-angles-bar {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(15, 23, 42, 0.78);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 9999px;
+  padding: 5px 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.angles-label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+
+.angle-btn {
+  background: transparent;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.angle-btn:hover {
+  color: #ffffff;
+}
+
+.angle-btn.active {
+  background: #ffffff;
+  color: #090a0f;
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* ---- FALLBACK STATIC IMAGE ---- */
+.photoreal-fallback-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #090a0f;
+  overflow: hidden;
+}
+
+.photoreal-fallback-img {
+  width: 90%;
+  height: auto;
+  max-height: 80%;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.8));
+}
+
+.photoreal-fallback-badge {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  padding: 6px 14px;
+  font-size: 0.72rem;
+  color: #94a3b8;
+}
