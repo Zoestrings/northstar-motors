@@ -3,3 +3,10 @@ dist
 .vercel
 .DS_Store
 *.log
+
+# Large 3D model binaries - too big for GitHub (serve via CDN or locally)
+*.glb
+*.gltf
+*.hdr
+*.exr
+vite.config.js.timestamp-*.mjs
