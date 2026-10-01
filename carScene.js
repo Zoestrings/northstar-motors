@@ -1,35 +1,54 @@
 /* ==========================================================================
-   NORTHSTAR MOTORS — CINEMATIC 3D AUTOMOTIVE STUDIO & CAMERA MANAGER
-   Luxury Dark Studio Environment, Dynamic Long-Lens Camera, GSAP Entrance,
-   Mouse Parallax with Damping, Headlight Hover Glow & Scroll Timeline
+   NORTHSTAR MOTORS — CINEMATIC ARCHITECTURAL SHOWROOM STUDIO
+   Photorealistic automotive showroom rendering engine:
+   - HDRI RoomEnvironment & PMREMGenerator for realistic PBR reflections
+   - Soft ambient contact shadow under the vehicle
+   - Polished reflective architectural floor & concrete studio wall
+   - Smooth 360° interactive turntable rotation & animated camera presets
    ========================================================================== */
 
 import * as THREE from 'three';
 import gsap from 'gsap';
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { CarModel } from './carModel.js';
 
 export class CarSceneManager {
   constructor(canvasElement) {
     this.canvas = canvasElement;
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
 
-    // Mouse & Inertia Tracking
-    this.mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
-    this.isHovered = false;
-    this.scrollProgress = 0;
+    // Use the canvas container's actual dimensions (right column only)
+    const container = canvasElement.parentElement || canvasElement;
+    this.width  = container.offsetWidth  || window.innerWidth  / 2;
+    this.height = container.offsetHeight || window.innerHeight;
+
+    // Interaction & 360° Drag Rotation State
+    this.isDragging = false;
+    this.previousMousePosition = { x: 0, y: 0 };
+    this.rotationVelocity = 0;
+    this.autoRotate = true;
+    this.idleTimer = null;
+    this.isPaused = false;
+    this.animFrameId = null;
+
+    // Touch gesture state
+    this.touchStartX = 0;
+    this.touchStartY = 0;
+    this.touchDecided = false;
+    this.touchIsHorizontal = false;
 
     this.initRenderer();
     this.initScene();
+    this.initEnvironment();
     this.initCamera();
     this.initLights();
-    this.initGround();
+    this.initContactShadow();
+    this.initArchitecturalStudio();
 
-    // Instantiate 3D Sports Car Model
+    // Create Photorealistic 3D Car Model
     this.car = new CarModel(this.scene);
 
+    this.init360DragRotation();
     this.initEventListeners();
-    this.playEntranceAnimation();
     this.animate();
   }
 
@@ -41,288 +60,431 @@ export class CarSceneManager {
       powerPreference: 'high-performance'
     });
     this.renderer.setSize(this.width, this.height);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Adaptive pixel ratio: 1.25 on mobile, 1.5 on desktop for buttery 60fps
+    const isMobile = window.innerWidth < 768;
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile ? 1.25 : 1.5));
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 1.25;
+    this.renderer.toneMappingExposure = 1.2;
   }
 
   initScene() {
     this.scene = new THREE.Scene();
-    // Sophisticated Dark Luxury Automotive Studio
-    this.scene.background = new THREE.Color(0x090a0f);
-    this.scene.fog = new THREE.FogExp2(0x090a0f, 0.025);
+    // Background set by HDRI loader — placeholder dark color until HDRI resolves
+    this.scene.background = new THREE.Color(0x0a0c12);
+  }
+
+  initEnvironment() {
+    // Real HDRI via RGBELoader — drives all PBR reflections on paint, glass, chrome
+    const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
+    pmremGenerator.compileEquirectangularShader();
+
+    new RGBELoader()
+      .setPath('/hdri/')
+      .load('studio.hdr', (texture) => {
+        const envMap = pmremGenerator.fromEquirectangular(texture).texture;
+
+        // Apply as both reflection source and scene background
+        this.scene.environment = envMap;
+        this.scene.background  = envMap;
+
+        // Blur the background so the car is the focal point, not the environment
+        this.scene.backgroundBlurriness = 0.45;
+        this.scene.backgroundIntensity  = 0.6;
+
+        texture.dispose();
+        pmremGenerator.dispose();
+      },
+      undefined,
+      () => {
+        // Fallback: if HDRI fails to load, keep PMREMGenerator room environment
+        const { PMREMGenerator } = THREE;
+        const gen = new PMREMGenerator(this.renderer);
+        gen.compileEquirectangularShader();
+        const fallbackEnv = gen.fromScene(new THREE.RoomEnvironment(), 0.04).texture;
+        this.scene.environment = fallbackEnv;
+        gen.dispose();
+      });
   }
 
   initCamera() {
-    // Cinematic Long-Lens Perspective (38° FOV for realistic vehicle proportions)
-    this.camera = new THREE.PerspectiveCamera(38, this.width / this.height, 0.1, 100);
+    // Dynamic FOV: Wider on portrait mobile screens so full car is framed without clipping
+    const aspect = this.width / this.height;
+    const fov = aspect < 1 ? 46 : 36;
+    this.camera = new THREE.PerspectiveCamera(fov, aspect, 0.1, 100);
+    this.cameraTarget = new THREE.Vector3(0, 0.45, 0);
 
-    // Default Hero 3/4 Camera View: low to ground, slightly below hood height, looking up
-    this.baseCameraPos = new THREE.Vector3(4.2, 1.35, 4.6);
-    this.cameraTarget = new THREE.Vector3(1.2, 0.52, 0);
-
-    this.camera.position.copy(this.baseCameraPos);
+    // Mobile offset slightly pulled back to show full Porsche silhouette
+    if (aspect < 1) {
+      this.camera.position.set(4.2, 1.45, 4.9);
+    } else {
+      this.camera.position.set(3.8, 1.35, 4.4);
+    }
     this.camera.lookAt(this.cameraTarget);
   }
 
   initLights() {
-    // 1. Ambient Dark Studio Glow
-    this.ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+    // HDRI drives ambient energy — keep additional lights subtle so they don't overpower reflections
+
+    // 1. Soft ambient fill (low intensity — HDRI handles most ambient)
+    this.ambientLight = new THREE.AmbientLight(0xf1f5f9, 0.4);
     this.scene.add(this.ambientLight);
 
-    // 2. Soft Overhead Key Softbox (Directional Shadow Caster)
-    this.keyLight = new THREE.DirectionalLight(0xffffff, 3.2);
-    this.keyLight.position.set(4, 8, 4);
+    // 2. Primary overhead shadow-casting key light (reduced — HDRI provides base illumination)
+    this.keyLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    this.keyLight.position.set(3, 8, 3);
     this.keyLight.castShadow = true;
-    this.keyLight.shadow.mapSize.width = 2048;
-    this.keyLight.shadow.mapSize.height = 2048;
+
+    const isMobile = window.innerWidth < 768;
+    const shadowRes = isMobile ? 512 : 1024;
+    this.keyLight.shadow.mapSize.width  = shadowRes;
+    this.keyLight.shadow.mapSize.height = shadowRes;
     this.keyLight.shadow.bias = -0.0001;
-    this.keyLight.shadow.camera.near = 0.5;
-    this.keyLight.shadow.camera.far = 25;
-    this.keyLight.shadow.camera.left = -6;
-    this.keyLight.shadow.camera.right = 6;
-    this.keyLight.shadow.camera.top = 6;
-    this.keyLight.shadow.camera.bottom = -6;
+    this.keyLight.shadow.camera.near   = 1;
+    this.keyLight.shadow.camera.far    = 16;
+    this.keyLight.shadow.camera.left   = -3.2;
+    this.keyLight.shadow.camera.right  = 3.2;
+    this.keyLight.shadow.camera.top    = 3.2;
+    this.keyLight.shadow.camera.bottom = -3.2;
     this.scene.add(this.keyLight);
 
-    // 3. Cinematic Rim Light (Along roofline and shoulder contour)
-    this.rimLight = new THREE.DirectionalLight(0x00e5ff, 2.2);
-    this.rimLight.position.set(-6, 4.5, -6);
-    this.scene.add(this.rimLight);
+    // 3. Front accent fill — gentle so HDRI specular stays king
+    this.frontFill = new THREE.DirectionalLight(0xffffff, 0.6);
+    this.frontFill.position.set(0, 4.5, 6.5);
+    this.scene.add(this.frontFill);
 
-    // 4. Subtle Front Grille & Wheel Fill Light
-    this.fillLight = new THREE.DirectionalLight(0xffffff, 1.4);
-    this.fillLight.position.set(2, 2.5, 6);
-    this.scene.add(this.fillLight);
+    // 4. Cool side rim highlight
+    this.leftRim = new THREE.DirectionalLight(0xdbeafe, 0.5);
+    this.leftRim.position.set(-6, 3.5, 2.5);
+    this.scene.add(this.leftRim);
 
-    // 5. Headlight Projector Spotlights
-    this.headlightSpotL = new THREE.SpotLight(0xdbeafe, 2.5, 12, Math.PI / 6, 0.4);
-    this.headlightSpotL.position.set(0.65, 0.95, 2.2);
-    this.headlightSpotL.target.position.set(0.65, 0, 8);
-    this.scene.add(this.headlightSpotL);
-    this.scene.add(this.headlightSpotL.target);
+    // 5. Warm sunset rim (adds depth to body panels)
+    this.sunsetLight = new THREE.DirectionalLight(0xfef08a, 0.5);
+    this.sunsetLight.position.set(6, 3.5, -3.5);
+    this.scene.add(this.sunsetLight);
 
-    this.headlightSpotR = new THREE.SpotLight(0xdbeafe, 2.5, 12, Math.PI / 6, 0.4);
-    this.headlightSpotR.position.set(2.05, 0.95, 2.2);
-    this.headlightSpotR.target.position.set(2.05, 0, 8);
-    this.scene.add(this.headlightSpotR);
-    this.scene.add(this.headlightSpotR.target);
+    // 6. Floor bounce (reveals undercarriage & rims)
+    this.groundBounce = new THREE.DirectionalLight(0x64748b, 0.3);
+    this.groundBounce.position.set(0, -3, 2);
+    this.scene.add(this.groundBounce);
+
+    // 7. Subtle headlight cone on floor
+    this.headlightSpot = new THREE.SpotLight(0xffffff, 1.2, 16, Math.PI / 4.5, 0.5);
+    this.headlightSpot.position.set(0, 0.8, 2.2);
+    this.headlightSpot.target.position.set(0, 0, 9);
+    this.scene.add(this.headlightSpot);
+    this.scene.add(this.headlightSpot.target);
   }
 
-  initGround() {
-    // Dark Reflective Mirror Studio Floor
-    const groundGeo = new THREE.PlaneGeometry(60, 60);
-    const groundMat = new THREE.MeshStandardMaterial({
-      color: 0x090b10,
-      roughness: 0.12,
-      metalness: 0.88
-    });
+  initContactShadow() {
+    // Realistic Soft Contact Shadow directly beneath tires and chassis
+    const shadowCanvas = document.createElement('canvas');
+    shadowCanvas.width = 512;
+    shadowCanvas.height = 512;
+    const sCtx = shadowCanvas.getContext('2d');
 
-    const groundMesh = new THREE.Mesh(groundGeo, groundMat);
-    groundMesh.rotation.x = -Math.PI / 2;
-    groundMesh.position.y = 0;
-    groundMesh.receiveShadow = true;
-    this.scene.add(groundMesh);
+    // Create radial ambient occlusion shadow gradient
+    const grad = sCtx.createRadialGradient(256, 256, 40, 256, 256, 230);
+    grad.addColorStop(0, 'rgba(0, 0, 0, 0.95)');
+    grad.addColorStop(0.35, 'rgba(0, 0, 0, 0.70)');
+    grad.addColorStop(0.70, 'rgba(0, 0, 0, 0.25)');
+    grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    sCtx.fillStyle = grad;
+    sCtx.fillRect(0, 0, 512, 512);
 
-    // Subtle Radial Floor Accent Rings
-    const ringGeo = new THREE.RingGeometry(2.4, 2.45, 64);
-    const ringMat = new THREE.MeshBasicMaterial({
-      color: 0x00e5ff,
-      side: THREE.DoubleSide,
+    const shadowTexture = new THREE.CanvasTexture(shadowCanvas);
+    const shadowGeo = new THREE.PlaneGeometry(5.4, 3.2);
+    const shadowMat = new THREE.MeshBasicMaterial({
+      map: shadowTexture,
       transparent: true,
-      opacity: 0.15
+      opacity: 0.88,
+      depthWrite: false
     });
-    const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-    ringMesh.rotation.x = -Math.PI / 2;
-    ringMesh.position.set(1.4, 0.004, 0);
-    this.scene.add(ringMesh);
+
+    const contactShadow = new THREE.Mesh(shadowGeo, shadowMat);
+    contactShadow.rotation.x = -Math.PI / 2;
+    contactShadow.position.y = 0.005; // Placed flush over floor
+    this.scene.add(contactShadow);
+  }
+
+  initArchitecturalStudio() {
+    // 1. Glossy reflective floor — blends with HDRI ground reflection
+    const floorGeo = new THREE.PlaneGeometry(80, 80);
+    const floorMat = new THREE.MeshStandardMaterial({
+      color: 0x0d0f14,
+      roughness: 0.12,
+      metalness: 0.8,
+      envMapIntensity: 2.0
+    });
+    const floorMesh = new THREE.Mesh(floorGeo, floorMat);
+    floorMesh.rotation.x = -Math.PI / 2;
+    floorMesh.position.y = 0;
+    floorMesh.receiveShadow = true;
+    this.scene.add(floorMesh);
+
+    // 2. ShadowMaterial plane — invisible, only catches real cast shadows under tires
+    const shadowPlaneGeo = new THREE.PlaneGeometry(12, 8);
+    const shadowPlaneMat = new THREE.ShadowMaterial({
+      opacity: 0.45,
+      transparent: true,
+      depthWrite: false
+    });
+    const shadowPlane = new THREE.Mesh(shadowPlaneGeo, shadowPlaneMat);
+    shadowPlane.rotation.x = -Math.PI / 2;
+    shadowPlane.position.y = 0.002;
+    shadowPlane.receiveShadow = true;
+    this.scene.add(shadowPlane);
   }
 
   // --------------------------------------------------------------------------
-  // CINEMATIC ENTRANCE ANIMATION SEQUENCE
+  // 360° SMOOTH INTERACTIVE DRAG ROTATION WITH INERTIA
   // --------------------------------------------------------------------------
-  playEntranceAnimation() {
-    // 1. Initial State: Car placed offset to the right, suspension lifted slightly
-    this.car.group.position.x = 4.8;
-    this.car.group.position.z = -1.2;
-    this.car.group.rotation.y = -Math.PI / 6;
-    this.car.setHeadlightIntensity(0.1);
+  init360DragRotation() {
+    // Desktop Mouse Drag
+    this.canvas.addEventListener('mousedown', (e) => {
+      this.isDragging = true;
+      this.autoRotate = false;
+      this.rotationVelocity = 0;
+      this.previousMousePosition = { x: e.clientX, y: e.clientY };
+      if (this.idleTimer) clearTimeout(this.idleTimer);
+    });
 
-    // 2. Smooth GSAP Glide into Showcase Position
-    gsap.to(this.car.group.position, {
-      x: 1.4,
-      z: 0,
-      duration: 2.2,
-      ease: 'power3.out',
-      onComplete: () => {
-        // 3. Tiny realistic suspension settling bounce
-        gsap.to(this.car.carRoot.position, {
-          y: 0.43,
-          duration: 0.25,
-          yoyo: true,
-          repeat: 1,
-          ease: 'power2.inOut',
-          onComplete: () => {
-            this.car.carRoot.position.y = 0.46;
-          }
-        });
+    window.addEventListener('mousemove', (e) => {
+      if (!this.isDragging || !this.car) return;
 
-        // 4. Gently illuminate Matrix LED headlights & DRLs
-        gsap.to(this.headlightSpotL, { intensity: 2.5, duration: 0.8 });
-        gsap.to(this.headlightSpotR, { intensity: 2.5, duration: 0.8 });
-        this.car.setHeadlightIntensity(1.0);
+      const deltaX = e.clientX - this.previousMousePosition.x;
+      this.rotationVelocity = deltaX * 0.007;
+      this.car.addRotation(this.rotationVelocity);
+      this.previousMousePosition = { x: e.clientX, y: e.clientY };
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (this.isDragging) {
+        this.isDragging = false;
+        // Resume subtle auto-rotation after 4 seconds of inactivity
+        this.idleTimer = setTimeout(() => {
+          this.autoRotate = true;
+        }, 4000);
       }
     });
 
-    // Rotate car slightly into 3/4 stance
-    gsap.to(this.car.group.rotation, {
-      y: -Math.PI / 8,
-      duration: 2.2,
-      ease: 'power3.out'
+    // Mobile & Tablet Touch Support (Permits smooth vertical page scroll!)
+    this.canvas.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        this.touchStartX = e.touches[0].clientX;
+        this.touchStartY = e.touches[0].clientY;
+        this.touchDecided = false;
+        this.touchIsHorizontal = false;
+        this.rotationVelocity = 0;
+        this.previousMousePosition = { x: this.touchStartX, y: this.touchStartY };
+        if (this.idleTimer) clearTimeout(this.idleTimer);
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches.length !== 1) return;
+
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      const dx = currentX - this.touchStartX;
+      const dy = currentY - this.touchStartY;
+
+      // Determine swipe intent: horizontal turntable rotation vs vertical page scroll
+      if (!this.touchDecided && (Math.abs(dx) > 7 || Math.abs(dy) > 7)) {
+        this.touchDecided = true;
+        this.touchIsHorizontal = Math.abs(dx) > Math.abs(dy);
+        if (this.touchIsHorizontal) {
+          this.isDragging = true;
+          this.autoRotate = false;
+        }
+      }
+
+      if (this.isDragging && this.touchIsHorizontal && this.car) {
+        const deltaX = currentX - this.previousMousePosition.x;
+        this.rotationVelocity = deltaX * 0.007;
+        this.car.addRotation(this.rotationVelocity);
+        this.previousMousePosition = { x: currentX, y: currentY };
+        // Prevent accidental page jumping only while actively swiping the car horizontally
+        if (e.cancelable) e.preventDefault();
+      }
+    }, { passive: false });
+
+    window.addEventListener('touchend', () => {
+      if (this.isDragging) {
+        this.isDragging = false;
+        this.touchDecided = false;
+        this.touchIsHorizontal = false;
+        this.idleTimer = setTimeout(() => {
+          this.autoRotate = true;
+        }, 4000);
+      }
     });
   }
 
-  // --------------------------------------------------------------------------
-  // INTERACTION EVENT LISTENERS
-  // --------------------------------------------------------------------------
   initEventListeners() {
-    // Mouse Parallax tracking
-    window.addEventListener('mousemove', (e) => {
-      // Normalized screen coordinates (-1 to 1)
-      this.mouse.targetX = (e.clientX / this.width) * 2 - 1;
-      this.mouse.targetY = -(e.clientY / this.height) * 2 + 1;
-    });
-
-    // Hover over hero section triggers intelligent headlight glow
+    // Intelligent hover over hero section triggers headlight glow
     const heroSection = document.getElementById('hero-section');
     if (heroSection) {
       heroSection.addEventListener('mouseenter', () => {
-        this.isHovered = true;
-        this.car.setHoverGlow(true);
-        gsap.to(this.headlightSpotL, { intensity: 3.8, duration: 0.4 });
-        gsap.to(this.headlightSpotR, { intensity: 3.8, duration: 0.4 });
+        if (this.car) this.car.setHoverGlow(true);
+        gsap.to(this.headlightSpot, { intensity: 4.5, duration: 0.4 });
       });
 
       heroSection.addEventListener('mouseleave', () => {
-        this.isHovered = false;
-        this.car.setHoverGlow(false);
-        gsap.to(this.headlightSpotL, { intensity: 2.5, duration: 0.6 });
-        gsap.to(this.headlightSpotR, { intensity: 2.5, duration: 0.6 });
+        if (this.car) this.car.setHoverGlow(false);
+        gsap.to(this.headlightSpot, { intensity: 3.0, duration: 0.6 });
       });
     }
 
-    // Scroll Timeline tracking for camera transitions
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
-      this.scrollProgress = Math.min(1.0, Math.max(0, scrollY / (heroHeight * 0.85)));
-      this.updateCameraOnScroll(this.scrollProgress);
+    // High-performance Viewport Intersection Observer
+    // Pauses 3D rendering whenever scrolled off-screen to free 100% GPU for the rest of the site!
+    if ('IntersectionObserver' in window) {
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            this.resume();
+          } else {
+            this.pause();
+          }
+        });
+      }, { threshold: 0.05 });
+      this.observer.observe(this.canvas);
+    }
+
+    // Pause rendering when browser tab is inactive to save battery and memory
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        this.pause();
+      } else {
+        const rect = this.canvas.getBoundingClientRect();
+        if (rect.bottom > 0 && rect.top < window.innerHeight) {
+          this.resume();
+        }
+      }
     });
 
-    // Window resize
-    window.addEventListener('resize', () => {
-      this.width = window.innerWidth;
-      this.height = window.innerHeight;
-      this.camera.aspect = this.width / this.height;
+    // Window and container responsive resize
+    const handleResize = () => {
+      const container = this.canvas.parentElement || this.canvas;
+      this.width  = container.offsetWidth  || (window.innerWidth < 768 ? window.innerWidth : window.innerWidth / 2);
+      this.height = container.offsetHeight || (window.innerWidth < 768 ? Math.min(window.innerHeight * 0.52, 380) : window.innerHeight);
+
+      const aspect = this.width / this.height;
+      this.camera.aspect = aspect;
+
+      // Adapt FOV: Wider on mobile portrait to fit full car beautifully
+      this.camera.fov = aspect < 1 ? 46 : 36;
       this.camera.updateProjectionMatrix();
-      this.renderer.setSize(this.width, this.height);
-    });
+
+      const isMobile = window.innerWidth < 768;
+      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile ? 1.25 : 1.5));
+      this.renderer.setSize(this.width, this.height, false);
+    };
+
+    window.addEventListener('resize', handleResize);
+    if ('ResizeObserver' in window && this.canvas.parentElement) {
+      this.resizeObserver = new ResizeObserver(handleResize);
+      this.resizeObserver.observe(this.canvas.parentElement);
+    }
   }
 
-  // Scroll camera angle timeline
-  updateCameraOnScroll(progress) {
-    // Camera moves gracefully around the car as user scrolls
-    // 0% -> Hero 3/4 (x: 4.2, y: 1.35, z: 4.6)
-    // 50% -> Side Profile (x: 5.4, y: 1.2, z: 1.2)
-    // 100% -> Close Front Lowered (x: 2.8, y: 0.95, z: 4.8)
-    const targetX = 4.2 + Math.sin(progress * Math.PI) * 1.4;
-    const targetY = 1.35 - progress * 0.4;
-    const targetZ = 4.6 - progress * 1.8;
-
-    this.baseCameraPos.set(targetX, targetY, targetZ);
-  }
-
-  // Camera Presets Smooth Sweeps
   setCameraPreset(presetName) {
+    if (!this.camera) return;
+
+    const isMobile = window.innerWidth < 768;
     const presets = {
-      hero: { pos: { x: 4.2, y: 1.35, z: 4.6 }, target: { x: 1.2, y: 0.52, z: 0 } },
-      front: { pos: { x: 1.4, y: 0.95, z: 5.4 }, target: { x: 1.4, y: 0.48, z: 0 } },
-      side: { pos: { x: 5.8, y: 1.15, z: 0 }, target: { x: 1.4, y: 0.48, z: 0 } },
-      rear: { pos: { x: 1.4, y: 1.25, z: -5.4 }, target: { x: 1.4, y: 0.48, z: 0 } },
-      wheels: { pos: { x: 3.2, y: 0.72, z: 2.2 }, target: { x: 2.45, y: 0.38, z: 1.42 } },
-      top: { pos: { x: 1.4, y: 7.5, z: 0.1 }, target: { x: 1.4, y: 0, z: 0 } }
+      hero:  { pos: isMobile ? { x: 4.2, y: 1.45, z: 4.9 } : { x: 3.8, y: 1.35, z: 4.4 }, target: { x: 0, y: 0.45, z: 0 } },
+      rear:  { pos: isMobile ? { x: 2.6, y: 1.30, z: 4.8 } : { x: 2.2, y: 1.20, z: 4.2 }, target: { x: 0, y: 0.45, z: 0 } },
+      side:  { pos: isMobile ? { x: 5.6, y: 1.20, z: 0   } : { x: 4.8, y: 1.15, z: 0   }, target: { x: 0, y: 0.45, z: 0 } },
+      front: { pos: isMobile ? { x: -4.4, y: 1.35, z: -5.0 } : { x: -3.8, y: 1.25, z: -4.4 }, target: { x: 0, y: 0.45, z: 0 } }
     };
 
     const targetPreset = presets[presetName] || presets.hero;
 
-    gsap.to(this.baseCameraPos, {
+    gsap.to(this.camera.position, {
       x: targetPreset.pos.x,
       y: targetPreset.pos.y,
       z: targetPreset.pos.z,
-      duration: 1.2,
-      ease: 'power3.inOut'
+      duration: 1.0,
+      ease: 'power2.inOut',
+      onUpdate: () => {
+        this.camera.lookAt(this.cameraTarget);
+      }
     });
 
     gsap.to(this.cameraTarget, {
       x: targetPreset.target.x,
       y: targetPreset.target.y,
       z: targetPreset.target.z,
-      duration: 1.2,
-      ease: 'power3.inOut'
+      duration: 1.0,
+      ease: 'power2.inOut',
+      onUpdate: () => {
+        this.camera.lookAt(this.cameraTarget);
+      }
     });
   }
 
-  // Studio Lighting Theme Switcher
-  setEnvironmentTheme(envTheme) {
-    if (envTheme === 'bright') {
-      this.scene.background.set(0x161a22);
-      this.scene.fog.color.set(0x161a22);
-      this.ambientLight.intensity = 1.2;
-      this.keyLight.intensity = 3.5;
-      this.rimLight.color.set(0x00e5ff);
-    } else if (envTheme === 'dark') {
-      this.scene.background.set(0x07080b);
-      this.scene.fog.color.set(0x07080b);
-      this.ambientLight.intensity = 0.5;
-      this.keyLight.intensity = 2.8;
-      this.rimLight.color.set(0xff2a5f);
-    } else if (envTheme === 'sunset') {
-      this.scene.background.set(0x1a1218);
-      this.scene.fog.color.set(0x1a1218);
-      this.ambientLight.intensity = 0.8;
-      this.keyLight.intensity = 3.0;
-      this.keyLight.color.set(0xffb800);
-      this.rimLight.color.set(0xff4500);
+  setEnvironmentTheme(theme) {
+    if (!this.ambientLight || !this.keyLight) return;
+
+    if (theme === 'sunset') {
+      gsap.to(this.ambientLight.color, { r: 1.0, g: 0.85, b: 0.7, duration: 0.8 });
+      gsap.to(this.ambientLight, { intensity: 0.6, duration: 0.8 });
+      gsap.to(this.sunsetLight, { intensity: 1.2, duration: 0.8 });
+      gsap.to(this.keyLight, { intensity: 0.7, duration: 0.8 });
+      gsap.to(this.renderer, { toneMappingExposure: 1.4, duration: 0.8 });
+    } else if (theme === 'night') {
+      gsap.to(this.ambientLight.color, { r: 0.4, g: 0.6, b: 0.9, duration: 0.8 });
+      gsap.to(this.ambientLight, { intensity: 0.3, duration: 0.8 });
+      gsap.to(this.keyLight, { intensity: 0.5, duration: 0.8 });
+      gsap.to(this.leftRim, { intensity: 1.0, duration: 0.8 });
+      gsap.to(this.headlightSpot, { intensity: 2.0, duration: 0.8 });
+      gsap.to(this.renderer, { toneMappingExposure: 1.0, duration: 0.8 });
+    } else {
+      // Studio default — HDRI-balanced
+      gsap.to(this.ambientLight.color, { r: 0.95, g: 0.96, b: 1.0, duration: 0.8 });
+      gsap.to(this.ambientLight, { intensity: 0.4, duration: 0.8 });
+      gsap.to(this.keyLight, { intensity: 0.8, duration: 0.8 });
+      if (this.frontFill) gsap.to(this.frontFill, { intensity: 0.6, duration: 0.8 });
+      gsap.to(this.sunsetLight, { intensity: 0.5, duration: 0.8 });
+      gsap.to(this.renderer, { toneMappingExposure: 1.2, duration: 0.8 });
     }
   }
 
-  // --------------------------------------------------------------------------
-  // RENDER LOOP & SMOOTH DAMPING
-  // --------------------------------------------------------------------------
+  pause() {
+    this.isPaused = true;
+    if (this.animFrameId) {
+      cancelAnimationFrame(this.animFrameId);
+      this.animFrameId = null;
+    }
+  }
+
+  resume() {
+    if (!this.isPaused) return;
+    this.isPaused = false;
+    this.animate();
+  }
+
   animate() {
-    requestAnimationFrame(() => this.animate());
+    if (this.isPaused) return;
+    this.animFrameId = requestAnimationFrame(() => this.animate());
 
-    // 1. Smooth Mouse Parallax Damping (Lerp with inertia)
-    this.mouse.x += (this.mouse.targetX - this.mouse.x) * 0.05;
-    this.mouse.y += (this.mouse.targetY - this.mouse.y) * 0.05;
-
-    // 2. Subtle camera parallax offset (never flips or over-rotates)
-    const parallaxX = this.mouse.x * 0.45;
-    const parallaxY = this.mouse.y * 0.25;
-
-    this.camera.position.x = this.baseCameraPos.x + parallaxX;
-    this.camera.position.y = this.baseCameraPos.y + parallaxY;
-    this.camera.position.z = this.baseCameraPos.z;
-
-    this.camera.lookAt(this.cameraTarget);
-
-    // 3. Update Car Internal Idle Animation
     const delta = 0.016;
+
+    // Smooth inertia deceleration on turntable drag
+    if (!this.isDragging) {
+      if (Math.abs(this.rotationVelocity) > 0.0001) {
+        if (this.car) this.car.addRotation(this.rotationVelocity);
+        this.rotationVelocity *= 0.92; // Natural friction
+      } else if (this.autoRotate && this.car) {
+        this.car.addRotation(0.0016); // Gentle showcase rotation
+      }
+    }
+
     if (this.car) this.car.update(delta);
 
-    // 4. Render Scene
     this.renderer.render(this.scene, this.camera);
   }
 }
