@@ -9,9 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "three": "^0.160.0",
+    "@ybouane/liquidglass": "^1.0.3",
     "gsap": "^3.12.5",
-    "lucide": "^0.344.0"
+    "lucide": "^0.344.0",
+    "three": "^0.160.0"
   },
   "devDependencies": {
     "vite": "^5.1.0"
