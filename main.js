@@ -6,6 +6,7 @@
 import { CarSceneManager } from './carScene.js';
 import { audioEngine } from './audioEngine.js';
 import { INVENTORY, BODY_STYLES, MAKES, FUEL_TYPES, TRANSMISSIONS } from './inventoryData.js';
+import { initAllGlass } from './liquidGlassEngine.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // --------------------------------------------------------------------------
@@ -76,7 +77,16 @@ document.addEventListener('DOMContentLoaded', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 6. Trigger audio feedback
+    // 6. Manage 3D engine resource lifecycle (pause WebGL on other pages to save 100% GPU)
+    if (carScene) {
+      if (pageId === 'home') {
+        carScene.resume();
+      } else {
+        carScene.pause();
+      }
+    }
+
+    // 7. Trigger audio feedback
     audioEngine.playClick();
   }
 
@@ -259,6 +269,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --------------------------------------------------------------------------
+  // Studio Drawer — slide-in customizer panel
+  // --------------------------------------------------------------------------
+  const heroSection  = document.getElementById('hero-section');
+  const drawerTab    = document.getElementById('studio-drawer-tab');
+  const drawerClose  = document.getElementById('studio-drawer-close');
+
+  function openDrawer() {
+    if (heroSection) heroSection.classList.add('drawer-open');
+  }
+  function closeDrawer() {
+    if (heroSection) heroSection.classList.remove('drawer-open');
+  }
+
+  if (drawerTab)   drawerTab.addEventListener('click',  openDrawer);
+  if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+
+  // Close drawer when clicking outside it on mobile
+  document.addEventListener('click', (e) => {
+    if (
+      heroSection &&
+      heroSection.classList.contains('drawer-open') &&
+      !e.target.closest('.studio-drawer') &&
+      !e.target.closest('.studio-tab')
+    ) {
+      closeDrawer();
+    }
+  });
+
+  // Hero Schedule Test Drive button
+  const heroScheduleBtn = document.getElementById('hero-schedule-testdrive-btn');
+  if (heroScheduleBtn) {
+    heroScheduleBtn.addEventListener('click', () => {
+      const testdriveModal = document.getElementById('testdrive-modal');
+      const testdriveVehicleInput = document.getElementById('testdrive-vehicle-input');
+      if (testdriveVehicleInput) testdriveVehicleInput.value = '2024 Porsche Panamera Turbo S';
+      if (testdriveModal) testdriveModal.classList.add('active');
+    });
+  }
+
   // Hero scroll down button
   const scrollDownBtn = document.getElementById('scroll-down-btn');
   if (scrollDownBtn) {
@@ -300,10 +350,10 @@ document.addEventListener('DOMContentLoaded', () => {
           <h3 class="card-title">${car.make} ${car.model}</h3>
           
           <div class="card-specs-row">
-            <div class="spec-item">⚡ <span>${formattedMiles} mi</span></div>
-            <div class="spec-item">⚙️ <span>${car.transmission.split(' ')[0]}</span></div>
-            <div class="spec-item">⛽ <span>${car.fuelType}</span></div>
-            <div class="spec-item">📍 <span>NJ</span></div>
+            <div class="spec-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline-block; vertical-align:middle; margin-right:4px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>${formattedMiles} mi</span></div>
+            <div class="spec-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline-block; vertical-align:middle; margin-right:4px;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>${car.transmission.split(' ')[0]}</span></div>
+            <div class="spec-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path d="M3 22V4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v18"/><path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L19 6"/><path d="M3 10h10"/></svg><span>${car.fuelType}</span></div>
+            <div class="spec-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>NJ</span></div>
           </div>
 
           <div class="card-location">${car.location}</div>
@@ -518,9 +568,15 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="detail-concierge-box">
             <strong>Questions? Talk to someone who knows the vehicle.</strong>
             <p style="color: #64748b; font-size: 0.8rem; margin: 4px 0 10px;">Northstar Specialists are available 9am–7pm.</p>
-            <div style="display: flex; gap: 12px; font-weight: 700; font-size: 0.85rem;">
-              <a href="tel:8563037680" style="color: #2563eb;">📞 (856) 303-7680</a>
-              <a href="mailto:sales@northstarmotors.com" style="color: #2563eb;">✉️ Email Specialist</a>
+            <div style="display: flex; gap: 14px; font-weight: 700; font-size: 0.85rem; align-items: center;">
+              <a href="tel:8563037680" style="color: #2563eb; display: inline-flex; align-items: center; gap: 6px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.86-1.14a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.22v1.7z"/></svg>
+                (856) 303-7680
+              </a>
+              <a href="mailto:sales@northstarmotors.com" style="color: #2563eb; display: inline-flex; align-items: center; gap: 6px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Email Specialist
+              </a>
             </div>
           </div>
         </div>
@@ -687,7 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `;
 
-      showToast(`🎯 Estimated value generated for your ${year} ${make}!`);
+      showToast(`Estimated market appraisal generated for your ${year} ${make}.`);
       audioEngine.playClick();
     });
   }
@@ -722,7 +778,7 @@ document.addEventListener('DOMContentLoaded', () => {
     orderForm.addEventListener('submit', (e) => {
       e.preventDefault();
       if (preorderModal) preorderModal.classList.remove('active');
-      showToast('🎉 Pre-approval application received! A Northstar finance specialist will reach out shortly.');
+      showToast('Pre-approval application received. A Northstar finance director will contact you shortly.');
       audioEngine.revEngine();
     });
   }
@@ -733,7 +789,7 @@ document.addEventListener('DOMContentLoaded', () => {
     testdriveForm.addEventListener('submit', (e) => {
       e.preventDefault();
       if (testdriveModal) testdriveModal.classList.remove('active');
-      showToast('📅 Test drive appointment confirmed! A specialist has reserved your vehicle keys.');
+      showToast('Test drive appointment confirmed. Your vehicle will be staged for arrival.');
       audioEngine.playClick();
     });
   }
@@ -744,7 +800,7 @@ document.addEventListener('DOMContentLoaded', () => {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
       contactForm.reset();
-      showToast('✉️ Message received! Northstar Motors team will respond within 2 showroom hours.');
+      showToast('Inquiry received. A Northstar client advisor will contact you within 2 showroom hours.');
       audioEngine.playClick();
     });
   }
@@ -755,4 +811,14 @@ document.addEventListener('DOMContentLoaded', () => {
       e.target.classList.remove('active');
     }
   });
+
+  // --------------------------------------------------------------------------
+  // LIQUID GLASS ENGINE — initialize WebGL glass effects
+  // Small delay to allow fonts and layout to settle first
+  // --------------------------------------------------------------------------
+  setTimeout(() => {
+    initAllGlass().catch(err => {
+      console.warn('[LiquidGlass] Initialization error:', err);
+    });
+  }, 300);
 });
